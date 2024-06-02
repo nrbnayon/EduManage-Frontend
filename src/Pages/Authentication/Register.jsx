@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-
+import BG from "../../assets/LoginImg.gif";
 const Register = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
@@ -83,14 +83,19 @@ const Register = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#8EA7E9]/20 p-6 md:p-0">
       <div className="flex h-full w-full overflow-hidden rounded-xl shadow-md  md:h-[90%] md:w-[80%] lg:h-[80%]">
-        <div className="relative hidden min-h-fit items-center justify-center bg-[#8EA7E9] md:flex md:w-[60%] lg:w-[40%]">
-          <div className="absolute -top-2 left-[20%] h-16 w-16 rounded-full bg-gradient-to-br  from-white via-[#9eb6f8] to-[#6585dd]"></div>
-          <div className="absolute bottom-[18%] left-[20%] h-20 w-20 rounded-full bg-gradient-to-br  from-white via-[#9eb6f8] to-[#6585dd]"></div>
-          <div className="absolute -right-7 top-[50%] h-14 w-14 -translate-y-1/2 rounded-full bg-gradient-to-br from-white via-[#9eb6f8] to-[#6585dd] transition-all"></div>
-          <div className="absolute left-[50%] top-[22%] h-24 w-24 -translate-x-1/2 rounded-full  bg-gradient-to-br from-white via-[#9eb6f8] to-[#6585dd]"></div>
-          <div className="space-y-2 text-center">
-            <h2 className="text-3xl font-medium text-white/80 ">Welcome</h2>
-            <p className="animate-pulse text-sm text-white/60">
+        <div className="relative hidden  min-h-fit items-center justify-center bg-[#8EA7E9] md:flex md:w-[60%] lg:w-[40%]">
+          <div className="absolute -top-2 z-10 left-[20%] h-16 w-16 rounded-full bg-gradient-to-br  from-white via-[#9eb6f8] to-[#6585dd]"></div>
+          <div className="absolute z-10 bottom-[18%] left-[20%] h-20 w-20 rounded-full bg-gradient-to-br  from-white via-[#9eb6f8] to-[#6585dd]"></div>
+          <div className="absolute  -right-7 top-[50%] h-14 w-14 -translate-y-1/2 rounded-full bg-gradient-to-br from-white via-[#9eb6f8] to-[#6585dd] transition-all"></div>
+          <div className="absolute  left-[50%] top-[22%] h-24 w-24 -translate-x-1/2 rounded-full  bg-gradient-to-br from-white via-[#9eb6f8] to-[#6585dd]"></div>
+          <div className="absolute inset-0 h-full w-full opacity-70">
+            <img src={BG} alt="" className="h-full w-full" />
+          </div>
+          <div className="space-y-2 text-center z-10">
+            <h2 className="text-3xl font-raleway text-black font-extrabold  ">
+              Welcome
+            </h2>
+            <p className="animate-pulse text-xl text-black">
               Please Enter Your Information
             </p>
           </div>

@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import Logo from "/logo.png";
+import Logo from "/logo4.jpeg";
 const NavBar = () => {
   const { user, logOut } = useAuth();
   const handleLogout = () => {
@@ -36,15 +36,6 @@ const NavBar = () => {
           Teach On EduManage
         </NavLink>
       </li>
-      {/* <li>
-        <NavLink
-          to="/shop"
-          className="hover:text-primary hover:underline transition duration-300"
-        >
-          OUR SHOP
-        </NavLink>
-      </li> */}
-
       <li>
         <NavLink
           to="/contact"
@@ -160,7 +151,7 @@ const NavBar = () => {
                   <li>
                     <Link
                       onClick={handleLogout}
-                      className="hidden md:flex btn btn-primary text-secondary btn-sm"
+                      className="btn btn-primary text-secondary btn-sm"
                     >
                       LOGOUT
                     </Link>

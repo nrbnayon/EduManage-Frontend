@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaGoogle, FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
-import LoginImg from "/logo.png";
+import LoginImg from "../../assets/reg3.jpeg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuth from "../../hooks/useAuth";
@@ -94,8 +94,8 @@ const Login = () => {
       </Helmet>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content w-[95%] mx-auto flex-col lg:flex-row">
-          <div className="md:w-1/2">
-            <img src={LoginImg} alt="Login" />
+          <div className="md:w-1/2 max-w-xl shrink-0 shadow-2xl rounded-md">
+            <img src={LoginImg} alt="Login" className="rounded-md" />
           </div>
           <div className="card shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
             <h1 className="text-2xl md:text-5xl mt-4 text-center font-bold">
