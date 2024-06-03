@@ -8,6 +8,8 @@ import Login from "../Pages/Authentication/Login";
 import Register from "./../Pages/Authentication/Register";
 import Contact from "../Pages/Contact/Contact";
 import AllCourses from "../Pages/AllCourses/AllCourses";
+import CourseDetails from "../Pages/AllCourses/CourseDetails";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +41,14 @@ export const router = createBrowserRouter([
       {
         path: "/allClasses",
         element: <AllCourses />,
+      },
+      {
+        path: "/courseDetails/:id",
+        element: (
+          <ProtectedRoute>
+            <CourseDetails />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/contact",
