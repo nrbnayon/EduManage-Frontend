@@ -7,6 +7,7 @@ export default withMT({
     extend: {
       fontFamily: {
         raleway: "'Raleway', sans-serif;",
+        cinzel: "'Cinzel', serif",
       },
       keyframes: {
         animatedgradient: {

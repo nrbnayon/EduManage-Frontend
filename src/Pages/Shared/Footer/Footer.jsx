@@ -2,13 +2,13 @@ import Logo from "/logo.png";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer p-10 bg-base-200 text-base-content">
+      <footer className="footer p-10 bg-base-200 text-base-content rounded-t-md">
         <aside>
           <img src={Logo} alt="Logo" className="w-16 h-16 rounded-md" />
           <p>
             Edu Manage
             <br />
-            Providing reliable tech since 2023
+            Providing reliable education since 2023
           </p>
         </aside>
         <nav>

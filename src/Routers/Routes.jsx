@@ -6,6 +6,7 @@ import Home from "../Pages/Home/Home";
 import GuestRoute from "./GuestRoute";
 import Login from "../Pages/Authentication/Login";
 import Register from "./../Pages/Authentication/Register";
+import Contact from "../Pages/Contact/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ export const router = createBrowserRouter([
           </GuestRoute>
         ),
       },
+
       {
         path: "/register",
         element: (
@@ -32,6 +34,10 @@ export const router = createBrowserRouter([
             <Register />
           </GuestRoute>
         ),
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },

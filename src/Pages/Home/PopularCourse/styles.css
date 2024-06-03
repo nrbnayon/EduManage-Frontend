@@ -1,0 +1,38 @@
+.swipers {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    overflow-y: hidden;
+}
+
+.swiper-slides {
+    background-position: center;
+    background-size: cover;
+    width: 500px;
+    height: 80vh;
+    padding-bottom: 50px;
+}
+
+.swiper-slides img {
+    display: block;
+    width: 100%;
+}
+
+
+@media (max-width: 768px) {
+    .swipers {
+        width: 100%;
+        height: 100vh;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .swiper-slides {
+        width: 100%;
+        height: 90vh;
+        margin-left: auto;
+        margin-right: auto;
+        background-position: center;
+    }
+
+}

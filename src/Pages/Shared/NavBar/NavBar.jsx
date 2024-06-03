@@ -22,7 +22,7 @@ const NavBar = () => {
 
       <li>
         <NavLink
-          to="/allClass"
+          to="/allClasses"
           className="hover:text-primary hover:underline transition duration-300"
         >
           All Classes
@@ -33,7 +33,7 @@ const NavBar = () => {
           to="/teachOnEduManage"
           className="hover:text-primary hover:underline transition duration-300"
         >
-          Teach On EduManage
+          Teach On Edu Manage
         </NavLink>
       </li>
       <li>
@@ -41,14 +41,14 @@ const NavBar = () => {
           to="/contact"
           className="hover:text-primary hover:underline transition duration-300"
         >
-          Contact Us
+          Contact
         </NavLink>
       </li>
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 fixed h-20 z-[999] max-w-screen-xl mx-auto opacity-90 border-b-2 border-red-400 ">
+    <div className="navbar bg-base-100 fixed h-20 z-[999] max-w-screen-xl mx-auto opacity-90 border-b-2 border-orange-400 rounded-b-lg">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
@@ -142,11 +142,15 @@ const NavBar = () => {
                   tabIndex={0}
                   className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-300 rounded-box opacity-100 space-y-2 w-52"
                 >
-                  <li className="text-center">
-                    <p>{user?.displayName}</p>
-                  </li>
+                  <p className="text-center">{user?.displayName}</p>
+                  <li></li>
                   <li>
-                    <a>Dashboard</a>
+                    <Link
+                      to="/dashboard"
+                      className="btn btn-outline text-secondary btn-sm"
+                    >
+                      Dashboard
+                    </Link>
                   </li>
                   <li>
                     <Link
