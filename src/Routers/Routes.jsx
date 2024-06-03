@@ -7,6 +7,7 @@ import GuestRoute from "./GuestRoute";
 import Login from "../Pages/Authentication/Login";
 import Register from "./../Pages/Authentication/Register";
 import Contact from "../Pages/Contact/Contact";
+import AllCourses from "../Pages/AllCourses/AllCourses";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
             <Register />
           </GuestRoute>
         ),
+      },
+      {
+        path: "/allClasses",
+        element: <AllCourses />,
       },
       {
         path: "/contact",
