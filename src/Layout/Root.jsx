@@ -13,11 +13,9 @@ const Root = () => {
 
   return (
     <div>
-      {noHeaderFooter || (
-        <div className="h-20">
-          <NavBar />
-        </div>
-      )}
+      <div className="h-20">
+        <NavBar />
+      </div>
       <div>
         <Outlet />
       </div>

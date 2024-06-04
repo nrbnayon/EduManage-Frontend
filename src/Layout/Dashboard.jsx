@@ -7,17 +7,15 @@ import {
   FaUsers,
   FaBook,
 } from "react-icons/fa6";
-import { FaHome, FaShopify } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
 import { GiWallet } from "react-icons/gi";
 import { MdRateReview, MdContentPasteSearch } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
-import useCart from "../hooks/useCart";
-import useAdmin from "../hooks/useAdmin";
 import { ToastContainer } from "react-toastify";
+import useAdmin from "./../hooks/useAdmin";
 
 const Dashboard = () => {
-  const { cart } = useCart();
   const { isAdmin } = useAdmin();
   return (
     <div className="flex flex-col md:flex-row h-screen">
@@ -36,11 +34,11 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/addItems"
+                  to="/dashboard/addCourse"
                   className="flex items-center space-x-2"
                 >
                   <FaUtensils />
-                  <span>Add Items</span>
+                  <span>Add Course</span>
                 </NavLink>
               </li>
               <li>
@@ -106,7 +104,7 @@ const Dashboard = () => {
                   className="flex items-center space-x-2"
                 >
                   <FaCartArrowDown />
-                  <span>My Cart ({cart.length})</span>
+                  <span>My Courses </span>
                 </NavLink>
               </li>
               <li>
@@ -138,17 +136,12 @@ const Dashboard = () => {
             </Link>
           </li>
           <li>
-            <Link to="/menu" className="flex items-center space-x-2">
+            <Link to="/allClasses" className="flex items-center space-x-2">
               <MdContentPasteSearch />
-              <span>Menu</span>
+              <span>All Courses</span>
             </Link>
           </li>
-          <li>
-            <Link to="/order/salad" className="flex items-center space-x-2">
-              <FaShopify />
-              <span>Order</span>
-            </Link>
-          </li>
+
           <li>
             <Link to="/contact" className="flex items-center space-x-2">
               <BiSolidPhoneCall />

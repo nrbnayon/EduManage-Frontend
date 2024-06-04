@@ -10,6 +10,8 @@ import Contact from "../Pages/Contact/Contact";
 import AllCourses from "../Pages/AllCourses/AllCourses";
 import CourseDetails from "../Pages/AllCourses/CourseDetails";
 import ProtectedRoute from "./ProtectedRoute";
+import Dashboard from "../Layout/Dashboard";
+import Payment from "../Pages/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -51,47 +53,55 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/payment/:courseId",
+        element: (
+          <ProtectedRoute>
+            <Payment />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "/contact",
         element: <Contact />,
       },
     ],
   },
-  // {
-  //   path: "/dashboard",
-  //   element: (
-  //     <ProtectedRoute>
-  //       <Dashboard />
-  //     </ProtectedRoute>
-  //   ),
-  //   children: [
-  //     // normal user Route
-  //     {
-  //       path: "cart",
-  //       element: (
-  //         <ProtectedRoute>
-  //           <Cart />
-  //         </ProtectedRoute>
-  //       ),
-  //     },
+  {
+    path: "/dashboard",
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+    // children: [
+    //   // normal user Route
+    //   {
+    //     path: "cart",
+    //     element: (
+    //       <ProtectedRoute>
+    //         <Cart />
+    //       </ProtectedRoute>
+    //     ),
+    //   },
 
-  //     //admin Routes
-  //     {
-  //       path: "addItems",
-  //       element: (
-  //         <AdminRoute>
-  //           <AddItem />
-  //         </AdminRoute>
-  //       ),
-  //     },
+    //   //admin Routes
+    //   {
+    //     path: "addItems",
+    //     element: (
+    //       <AdminRoute>
+    //         <AddItem />
+    //       </AdminRoute>
+    //     ),
+    //   },
 
-  //     {
-  //       path: "users",
-  //       element: (
-  //         <AdminRoute>
-  //           <AllUsers />
-  //         </AdminRoute>
-  //       ),
-  //     },
-  //   ],
-  // },
+    //   {
+    //     path: "users",
+    //     element: (
+    //       <AdminRoute>
+    //         <AllUsers />
+    //       </AdminRoute>
+    //     ),
+    //   },
+    // ],
+  },
 ]);

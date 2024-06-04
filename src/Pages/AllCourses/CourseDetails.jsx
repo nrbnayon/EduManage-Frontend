@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaDollarSign, FaUser, FaUsers } from "react-icons/fa";
 import LoaderSpinner from "../Shared/LoaderSpinner/LoaderSpinner";
 import { useQuery } from "@tanstack/react-query";
@@ -24,17 +24,17 @@ const CourseDetails = () => {
     dependencies: [id],
   });
 
-  const { image, title, shortDescription, name, price, totalEnrollment } =
+  const { _id, image, title, shortDescription, name, price, totalEnrollment } =
     course;
   if (isLoading || !course) return <LoaderSpinner />;
   if (error) return <div>Error loading course details: {error.message}</div>;
 
   return (
-    <div className="rounded container mx-auto  my-4 p-4 shadow-lg border">
+    <div className="rounded container mx-auto  p-4 shadow-lg border">
       <Helmet>
         <title>{`EduManage | ${title}`}</title>
       </Helmet>
-      <div className="h-[500px]">
+      <div className="h-[400px]">
         <img className="w-full h-full rounded-md" src={image} alt={title} />
       </div>
       <div className="px-2 py-4">
@@ -76,10 +76,13 @@ const CourseDetails = () => {
           </div>
         </div>
         <div className="mt-4">
-          <button className="btn w-full btn-success text-white font-semibold rounded hover:btn-info focus:outline-none focus:shadow-outline">
+          <Link
+            to={`/payment/${_id}`}
+            className="btn w-full btn-success text-white font-semibold rounded hover:btn-info focus:outline-none focus:shadow-outline"
+          >
             <IoWalletSharp />
             Pay Now
-          </button>
+          </Link>
         </div>
       </div>
     </div>
