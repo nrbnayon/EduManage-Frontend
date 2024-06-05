@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import { FaCreditCard, FaSpinner } from "react-icons/fa";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CheckoutForm = ({ courseInfo }) => {
   const stripe = useStripe();
@@ -13,13 +15,15 @@ const CheckoutForm = ({ courseInfo }) => {
   const [transactionId, setTransactionId] = useState("");
   const { user } = useAuth();
   const [error, setError] = useState(null);
+  const [cardComplete, setCardComplete] = useState(false);
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
-  const { title, name, price } = courseInfo;
+  const { _id, image, title, shortDescription, name, price } = courseInfo;
 
   useEffect(() => {
     const createPaymentIntent = async () => {
-      if (price) {
+      if (parseInt(price) > 0) {
         try {
           const res = await axiosSecure.post("/create-payment-intent", {
             price: parseInt(price),
@@ -33,28 +37,28 @@ const CheckoutForm = ({ courseInfo }) => {
 
     createPaymentIntent();
   }, [axiosSecure, price]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setTransactionId("");
     if (!stripe || !elements) {
-      console.error("Stripe.js has not yet loaded.");
       return;
     }
 
     setLoading(true);
     const card = elements.getElement(CardElement);
     if (card === null) {
-      console.error("Card Element not found.");
       setLoading(false);
       return;
     }
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
+    const {
+      error,
+      // paymentMethod
+    } = await stripe.createPaymentMethod({
       type: "card",
       card,
     });
-
-    //confirm payment
 
     const { paymentIntent, error: payError } = await stripe.confirmCardPayment(
       clientSecret,
@@ -64,26 +68,37 @@ const CheckoutForm = ({ courseInfo }) => {
           billing_details: {
             email: user?.email || "anonymous",
             name: user?.displayName || "anonymous",
-            // image: user?.profileURL || "anonymous",
           },
         },
       }
     );
+
     if (payError) {
-      console.log("Confirm Error:", payError);
-    } else {
-      console.log("Success pay", paymentIntent);
-      if (paymentIntent.status === "succeeded") {
-        console.log("transaction id: ", paymentIntent.id);
-        setTransactionId(paymentIntent.id);
-      }
+      setError(payError.message);
+    } else if (paymentIntent.status === "succeeded") {
+      setTransactionId(paymentIntent.id);
+      const enrollCourse = {
+        courseTitle: title,
+        courseImg: image,
+        courseDescription: shortDescription,
+        coursePrice: price,
+        teacherName: name,
+        studentName: user?.displayName,
+        studentEmail: user?.email,
+        enrollDate: new Date(),
+        transactionId: paymentIntent.id,
+        status: "pending",
+      };
+      await axiosSecure.post("/enroll-course", enrollCourse);
+      await axiosSecure.patch(`/updateTotalEnrollment/${_id}`);
+      toast.success("Your Payment Successful");
+      navigate("/dashboard/my-enroll");
     }
+
     setLoading(false);
     if (error) {
-      console.error("Payment error:", error);
       setError(error.message);
     } else {
-      console.log("Payment Method", paymentMethod);
       setError(null);
     }
   };
@@ -99,10 +114,13 @@ const CheckoutForm = ({ courseInfo }) => {
           Course: {title}
         </h3>
         <div className="flex justify-around mt-2">
-          <p className="text-sm ">Teacher: {name}</p>
-          <p className="text-sm ">Enrollment Price: ${price}</p>
+          <p className="text-sm">Teacher: {name}</p>
+          <p className="text-sm">Enrollment Price: ${price}</p>
         </div>
       </div>
+      <h3 className="text-center font-bold font-raleway text-info">
+        Enter Your Card Details
+      </h3>
       <div className="my-4 p-4 border border-gray-300 rounded-md">
         <CardElement
           options={{
@@ -119,6 +137,10 @@ const CheckoutForm = ({ courseInfo }) => {
               },
             },
           }}
+          onChange={(event) => {
+            setError(event.error ? event.error.message : "");
+            setCardComplete(event.complete);
+          }}
         />
       </div>
       {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -128,9 +150,13 @@ const CheckoutForm = ({ courseInfo }) => {
         </div>
       )}
       <button
-        className="w-full py-3 bg-green-500 text-white font-semibold rounded hover:bg-green-600 focus:outline-none focus:shadow-outline flex items-center justify-center"
+        className={`w-full py-3 text-white font-semibold rounded hover:bg-green-600 focus:outline-none focus:shadow-outline flex items-center justify-center ${
+          !stripe || loading || !clientSecret || !cardComplete
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-green-500"
+        }`}
         type="submit"
-        disabled={!stripe || loading || !clientSecret}
+        disabled={!stripe || loading || !clientSecret || !cardComplete}
       >
         {loading ? (
           <>

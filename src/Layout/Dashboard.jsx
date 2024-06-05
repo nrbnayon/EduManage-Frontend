@@ -17,9 +17,10 @@ import useAdmin from "./../hooks/useAdmin";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
+  console.log("is admin", isAdmin);
   return (
     <div className="flex flex-col md:flex-row h-screen">
-      <div className="w-full md:w-64 bg-orange-400 font-cinzel font-semibold text-white md:sticky md:top-0">
+      <div className="w-full md:w-64 bg-light-blue-400 font-cinzel font-semibold text-white md:sticky md:top-0">
         <ul className="menu space-y-3 p-4">
           {isAdmin ? (
             <>
@@ -100,11 +101,11 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/cart"
+                  to="/dashboard/my-enroll"
                   className="flex items-center space-x-2"
                 >
                   <FaCartArrowDown />
-                  <span>My Courses </span>
+                  <span>My Enroll Classes </span>
                 </NavLink>
               </li>
               <li>

@@ -12,6 +12,7 @@ import CourseDetails from "../Pages/AllCourses/CourseDetails";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "../Layout/Dashboard";
 import Payment from "../Pages/Payment/Payment";
+import MyEnroll from "../Pages/Dashboard/Students/MyEnroll";
 
 export const router = createBrowserRouter([
   {
@@ -73,16 +74,17 @@ export const router = createBrowserRouter([
         <Dashboard />
       </ProtectedRoute>
     ),
-    // children: [
-    //   // normal user Route
-    //   {
-    //     path: "cart",
-    //     element: (
-    //       <ProtectedRoute>
-    //         <Cart />
-    //       </ProtectedRoute>
-    //     ),
-    //   },
+    children: [
+      // normal user Route
+      {
+        path: "my-enroll",
+        element: (
+          <ProtectedRoute>
+            <MyEnroll />
+          </ProtectedRoute>
+        ),
+      },
+    ],
 
     //   //admin Routes
     //   {
