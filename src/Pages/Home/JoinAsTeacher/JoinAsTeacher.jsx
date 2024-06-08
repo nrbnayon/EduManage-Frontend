@@ -1,12 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Teacher from "../../../assets/Teacher.jpg";
 const JoinAsTeacherSection = () => {
-  const navigate = useNavigate();
-
-  const handleStartTeachingClick = () => {
-    navigate("/teach");
-  };
-
   return (
     <div className="bg-gray-100 py-16 flex font-cinzel flex-col md:flex-row justify-between items-center">
       <div className="w-full md:w-1/2 flex justify-center">
@@ -25,12 +19,12 @@ const JoinAsTeacherSection = () => {
           students all around the world. Enjoy the freedom to create your own
           courses and help shape the future of education.
         </p>
-        <button
-          onClick={handleStartTeachingClick}
+        <Link
+          to="/applyForTeacher"
           className="bg-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-600"
         >
           Start Teaching Today
-        </button>
+        </Link>
       </div>
     </div>
   );

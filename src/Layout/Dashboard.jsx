@@ -2,15 +2,13 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import {
   FaCartArrowDown,
   FaList,
-  FaRectangleList,
   FaUtensils,
   FaUsers,
   FaBook,
 } from "react-icons/fa6";
-import { FaHome } from "react-icons/fa";
-import { FcCalendar } from "react-icons/fc";
+import { FaHome, FaUser } from "react-icons/fa";
 import { GiWallet } from "react-icons/gi";
-import { MdRateReview, MdContentPasteSearch } from "react-icons/md";
+import { MdContentPasteSearch } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { ToastContainer } from "react-toastify";
 import useAdmin from "./../hooks/useAdmin";
@@ -53,11 +51,11 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/manageBookings"
+                  to="/dashboard/teacher-request"
                   className="flex items-center space-x-2"
                 >
                   <FaBook />
-                  <span>Manage Bookings</span>
+                  <span>Teacher Request</span>
                 </NavLink>
               </li>
               <li>
@@ -74,20 +72,21 @@ const Dashboard = () => {
             <>
               <li>
                 <NavLink
-                  to="/dashboard/userHome"
+                  to="/dashboard/my-profile"
                   className="flex items-center space-x-2"
                 >
-                  <FaHome />
-                  <span>User Home</span>
+                  <FaUser />
+                  <span>Profile</span>
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
-                  to="/dashboard/reservation"
+                  to="/dashboard/my-enroll"
                   className="flex items-center space-x-2"
                 >
-                  <FcCalendar />
-                  <span>Reservation</span>
+                  <FaCartArrowDown />
+                  <span>My Enroll Class </span>
                 </NavLink>
               </li>
               <li>
@@ -97,33 +96,6 @@ const Dashboard = () => {
                 >
                   <GiWallet />
                   <span>Payment History</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/dashboard/my-enroll"
-                  className="flex items-center space-x-2"
-                >
-                  <FaCartArrowDown />
-                  <span>My Enroll Classes </span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/dashboard/addReviews"
-                  className="flex items-center space-x-2"
-                >
-                  <MdRateReview />
-                  <span>Add Review</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/dashboard/myBooking"
-                  className="flex items-center space-x-2"
-                >
-                  <FaRectangleList />
-                  <span>My Booking</span>
                 </NavLink>
               </li>
             </>

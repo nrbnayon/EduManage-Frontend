@@ -53,6 +53,7 @@ const Login = () => {
           userProfileImg: result.user?.photoURL,
           userEmail: result.user?.email,
           userRole: "student",
+          status: "pending",
         };
         axiosPublic.post("/users", userInfo);
         navigate(from, { replace: true });

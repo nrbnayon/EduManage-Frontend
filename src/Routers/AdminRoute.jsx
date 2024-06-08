@@ -1,8 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
-import useAdmin from "../hooks/useAdmin";
 import useAuth from "../hooks/useAuth";
-import PropTypes from "prop-types";
-import Spinner from "../Pages/Shared/Spinner/Spinner";
+import useAdmin from "../hooks/useAdmin";
+import { PropTypes } from "prop-types";
 
 const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -11,7 +10,7 @@ const AdminRoute = ({ children }) => {
   const location = useLocation();
 
   if (loading || isAdminLoading) {
-    return <Spinner />;
+    return <p>Loading...</p>;
   }
 
   if (user && isAdmin) {

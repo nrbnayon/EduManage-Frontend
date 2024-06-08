@@ -6,6 +6,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import SectionTitle from "./../Shared/BgCard/SectionTitle";
 
 const CheckoutForm = ({ courseInfo }) => {
   const stripe = useStripe();
@@ -89,9 +90,9 @@ const CheckoutForm = ({ courseInfo }) => {
         transactionId: paymentIntent.id,
         status: "pending",
       };
+      toast.success("Your Payment Successful");
       await axiosSecure.post("/enroll-course", enrollCourse);
       await axiosSecure.patch(`/updateTotalEnrollment/${_id}`);
-      toast.success("Your Payment Successful");
       navigate("/dashboard/my-enroll");
     }
 
@@ -103,13 +104,18 @@ const CheckoutForm = ({ courseInfo }) => {
     }
   };
 
+  const header = {
+    title: "---Please Pay To---",
+    desc: "Enroll Course",
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
       className="space-y-6 p-6 bg-white shadow-md rounded-lg"
     >
       <div className="mb-4 space-y-3">
-        <h1 className="text-center text-3xl font-raleway">Make Payment For</h1>
+        <SectionTitle header={header} />
         <h3 className="text-center text-lg font-cinzel font-semibold">
           Course: {title}
         </h3>

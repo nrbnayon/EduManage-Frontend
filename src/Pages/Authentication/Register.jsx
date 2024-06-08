@@ -56,6 +56,7 @@ const Register = () => {
         userProfileImg: photourl,
         userEmail: email,
         userRole: "student",
+        status: "pending",
       };
 
       axiosPublic

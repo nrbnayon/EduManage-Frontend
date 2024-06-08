@@ -13,6 +13,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "../Layout/Dashboard";
 import Payment from "../Pages/Payment/Payment";
 import MyEnroll from "../Pages/Dashboard/Students/MyEnroll";
+import ApplyForTeachingPosition from "../Pages/Dashboard/Teacher/ApplyForTeachingPosition";
+import AdminRoute from "./AdminRoute";
+import TeacherRequest from "../Pages/Dashboard/Admin/TeacherRequest";
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +65,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "/applyForTeacher",
+        element: (
+          <ProtectedRoute>
+            <ApplyForTeachingPosition />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "/contact",
         element: <Contact />,
       },
@@ -84,17 +95,17 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "teacher-request",
+        element: (
+          <AdminRoute>
+            <TeacherRequest />
+          </AdminRoute>
+        ),
+      },
     ],
 
     //   //admin Routes
-    //   {
-    //     path: "addItems",
-    //     element: (
-    //       <AdminRoute>
-    //         <AddItem />
-    //       </AdminRoute>
-    //     ),
-    //   },
 
     //   {
     //     path: "users",
