@@ -146,7 +146,7 @@ const NavBar = () => {
                   <li></li>
                   <li>
                     <Link
-                      to="/dashboard"
+                      to="/dashboard/my-profile"
                       className="btn btn-outline text-secondary btn-sm"
                     >
                       Dashboard

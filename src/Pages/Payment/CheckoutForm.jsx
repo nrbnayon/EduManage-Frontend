@@ -79,6 +79,7 @@ const CheckoutForm = ({ courseInfo }) => {
     } else if (paymentIntent.status === "succeeded") {
       setTransactionId(paymentIntent.id);
       const enrollCourse = {
+        courseId: _id,
         courseTitle: title,
         courseImg: image,
         courseDescription: shortDescription,
@@ -88,7 +89,7 @@ const CheckoutForm = ({ courseInfo }) => {
         studentEmail: user?.email,
         enrollDate: new Date(),
         transactionId: paymentIntent.id,
-        status: "pending",
+        status: "success",
       };
       toast.success("Your Payment Successful");
       await axiosSecure.post("/enroll-course", enrollCourse);

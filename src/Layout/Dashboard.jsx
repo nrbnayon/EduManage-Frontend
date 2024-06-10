@@ -123,7 +123,7 @@ const Dashboard = () => {
           </li>
         </ul>
       </div>
-      <div className="flex-1 md:p-4 lg:p-8 md:overflow-y-auto">
+      <div className="flex-1 mt-3 border-t-2 md:border-none md:p-4 lg:p-8 md:overflow-y-auto">
         <Outlet />
       </div>
       <ToastContainer />

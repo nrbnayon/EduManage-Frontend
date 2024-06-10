@@ -16,6 +16,9 @@ import MyEnroll from "../Pages/Dashboard/Students/MyEnroll";
 import ApplyForTeachingPosition from "../Pages/Dashboard/Teacher/ApplyForTeachingPosition";
 import AdminRoute from "./AdminRoute";
 import TeacherRequest from "../Pages/Dashboard/Admin/TeacherRequest";
+import StudentEnrollRouter from "./StudentEnrollRouter";
+import MyClassDetails from "../Pages/Dashboard/Students/MyClassDetails";
+import UserProfile from "../Pages/Dashboard/Users/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -86,13 +89,21 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-      // normal user Route
+      // student enroll  Route
       {
         path: "my-enroll",
         element: (
-          <ProtectedRoute>
+          <StudentEnrollRouter>
             <MyEnroll />
-          </ProtectedRoute>
+          </StudentEnrollRouter>
+        ),
+      },
+      {
+        path: "myEnroll-class/:id",
+        element: (
+          <StudentEnrollRouter>
+            <MyClassDetails />
+          </StudentEnrollRouter>
         ),
       },
       {
@@ -101,6 +112,14 @@ export const router = createBrowserRouter([
           <AdminRoute>
             <TeacherRequest />
           </AdminRoute>
+        ),
+      },
+      {
+        path: "my-profile",
+        element: (
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
         ),
       },
     ],
