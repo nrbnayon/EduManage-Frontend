@@ -6,23 +6,18 @@ const useTeacher = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const {
-    data: isTeacher,
-    isTeacherLoading,
-    isPending,
-    error,
-  } = useQuery({
+  const { data, isLoading, refetch, error } = useQuery({
     queryKey: [user?.email, "isTeacher"],
     queryFn: async () => {
-      if (!user?.email) return false;
+      if (!user?.email) return { teacher: false, status: "" };
       const res = await axiosSecure.get(`/users/teacher/${user.email}`);
-      console.log(res.data);
-      return res.data?.teacher;
+      console.log(res.data); // This should log the correct data structure
+      return res.data;
     },
     enabled: !!user?.email,
   });
 
-  return { isTeacher, isTeacherLoading, error, isPending };
+  return { ...data, refetch, isLoading, error };
 };
 
 export default useTeacher;

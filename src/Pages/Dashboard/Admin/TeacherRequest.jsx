@@ -3,11 +3,9 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaBan } from "react-icons/fa";
 import { FaUsersGear } from "react-icons/fa6";
-import useTeacher from "../../../hooks/useTeacher";
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
-  const { isTeacher } = useTeacher();
   const {
     data: requests = [],
     isLoading,
@@ -20,14 +18,18 @@ const TeacherRequest = () => {
       return res.data;
     },
   });
-  const handleMakeTeacher = (request) => {
-    axiosSecure
-      .patch(`/users/teacher-request/${request._id}?email=${request.email}`)
-      .then((res) => {
-        console.log("Admin", res.data);
-        if (res.data.modifiedCount > 0) {
-          refetch();
 
+  const handleMakeTeacher = async (request) => {
+    try {
+      const res = await axiosSecure.patch(
+        `/users/teacher-request/${request._id}?email=${request.email}`
+      );
+      if (res.data.success) {
+        const approveRes = await axiosSecure.post(
+          `/users/teacher-approve/${request._id}`
+        );
+        if (approveRes.data.success) {
+          refetch();
           Swal.fire({
             position: "top-end",
             title: `${request.name} is now a Teacher!`,
@@ -35,18 +37,39 @@ const TeacherRequest = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+        } else {
+          Swal.fire("Error!", approveRes.data.message, "error");
         }
-      })
-      .catch((error) => {
-        Swal.fire("Error!", "Failed to make the user a teacher.", error);
+      } else {
+        Swal.fire("Error!", res.data.message, "error");
+      }
+    } catch (error) {
+      Swal.fire("Error!", "Failed to make the user a teacher.", "error");
+    }
+  };
+
+  const handleRejectRequest = async (id) => {
+    try {
+      const res = await axiosSecure.patch(`/users/teacher-reject/${id}`);
+      refetch();
+      Swal.fire({
+        position: "top-end",
+        title: "Request Rejected!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
       });
+      console.log(res);
+    } catch (error) {
+      Swal.fire("Error!", "Failed to reject the request.", "error");
+    }
   };
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading requests: {error.message}</p>;
 
   return (
-    <div className="my-6 p-8 border rounded-lg shadow-lg bg-white">
+    <div className="my-6 px-2 py-8 border rounded-lg shadow-lg bg-white">
       <h1 className="text-3xl font-bold mb-8 text-center">Teaching Requests</h1>
       {requests.length === 0 ? (
         <p>No requests found.</p>
@@ -74,26 +97,34 @@ const TeacherRequest = () => {
                       className="w-12 h-12 rounded-full"
                     />
                   </td>
-                  <td className="py-3 px-4">{request.name}</td>
+                  <td className="py-3 text-xs px-4">{request.name}</td>
                   <td className="py-3 text-xs px-4">{request.email}</td>
                   <td className="py-3 text-xs px-4">{request.title}</td>
                   <td className="py-3 text-xs px-4">{request.category}</td>
                   <td className="py-3 text-xs px-4">{request.experience}</td>
-                  <td className="py-3 px-4 flex justify-center space-x-2">
-                    <button
-                      onClick={() => handleMakeTeacher(request)}
-                      className="text-green-500 hover:text-green-700 transition duration-300"
-                      title="Approve Request"
-                    >
-                      <FaUsersGear size={20} />
-                    </button>
-                    <button
-                      //   onClick={() => handleRejectRequest(request._id)}
-                      className="text-red-500 hover:text-red-700 transition duration-300"
-                      title="Reject Request"
-                    >
-                      <FaBan size={20} />
-                    </button>
+                  <td className="py-3 px-4 flex justify-center mt-3 space-x-2">
+                    {request.status === "pending" ? (
+                      <>
+                        <button
+                          onClick={() => handleMakeTeacher(request)}
+                          className="text-green-500 text-xs gap-1 flex items-center hover:text-green-700 transition duration-300"
+                          title="Approve Request"
+                        >
+                          <FaUsersGear size={16} /> Approve
+                        </button>
+                        <button
+                          onClick={() => handleRejectRequest(request._id)}
+                          className="text-red-500 text-xs gap-1 flex items-center hover:text-red-700 transition duration-300"
+                          title="Reject Request"
+                        >
+                          <FaBan size={16} /> Reject
+                        </button>
+                      </>
+                    ) : request.status === "reject" ? (
+                      <p className="text-red-500 text-xs">Rejected</p>
+                    ) : (
+                      <p className="text-green-500 text-xs">Approved</p>
+                    )}
                   </td>
                 </tr>
               ))}
