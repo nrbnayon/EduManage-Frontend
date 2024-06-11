@@ -13,8 +13,9 @@ const UpdateClassModal = ({ isOpen, onClose, onSubmit, initialData }) => {
   }, [initialData, reset]);
 
   const onSubmitForm = (data) => {
+    // eslint-disable-next-line no-unused-vars
     const { _id, ...formData } = data;
-    onSubmit(formData);
+    onSubmit({ ...formData, price: parseInt(data.price) });
   };
 
   if (!isOpen) return null;
@@ -39,7 +40,6 @@ const UpdateClassModal = ({ isOpen, onClose, onSubmit, initialData }) => {
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
             />
           </div>
-
           <div className="mb-4">
             <label className="block text-gray-700 font-medium">Image URL</label>
             <input
@@ -47,7 +47,6 @@ const UpdateClassModal = ({ isOpen, onClose, onSubmit, initialData }) => {
               className="w-full p-3 border border-gray-300 rounded text-black"
             />
           </div>
-
           <div className="mb-4">
             <label className="block text-gray-700 font-medium">Price</label>
             <input
@@ -85,7 +84,6 @@ UpdateClassModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   initialData: PropTypes.shape({
-    _id: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
     shortDescription: PropTypes.string,

@@ -23,7 +23,6 @@ const AddCourse = () => {
     const courseInfo = {
       ...data,
       teacherEmail: user.email,
-      totalEnrollment: 0,
       status: "pending",
     };
 
@@ -36,7 +35,6 @@ const AddCourse = () => {
         reset();
       }
     } catch (error) {
-      console.error("Error adding class:", error);
       Swal.fire("Error", "Failed to add course", "error");
     }
   };
@@ -46,11 +44,11 @@ const AddCourse = () => {
       <h2 className="text-3xl font-bold mb-6 text-center">Add New Course</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className=" w-full grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6"
       >
-        <div className="flex items-center space-x-2">
+        <div className="flex col-span-2 md:col-span-1 items-center space-x-2">
           <FaChalkboardTeacher size={24} />
-          <div className="flex flex-col w-full">
+          <div className="flex col-span-2 md:col-span-1 flex-col w-full">
             <label className="block">Title</label>
             <input
               {...register("title", { required: true })}
@@ -59,7 +57,7 @@ const AddCourse = () => {
             />
           </div>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex col-span-2 md:col-span-1 items-center space-x-2">
           <FaDollarSign size={24} />
           <div className="flex flex-col w-full">
             <label className="block">Price</label>
@@ -94,7 +92,7 @@ const AddCourse = () => {
             ></textarea>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex col-span-2 md:col-span-1 items-center space-x-2">
           <FaChalkboardTeacher size={24} />
           <div className="flex flex-col w-full">
             <label className="block">Name</label>
@@ -106,7 +104,7 @@ const AddCourse = () => {
             />
           </div>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex col-span-2 md:col-span-1 items-center space-x-2">
           <FaEnvelope size={24} />
           <div className="flex flex-col w-full">
             <label className="block">Email</label>

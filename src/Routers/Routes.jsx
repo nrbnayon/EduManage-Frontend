@@ -22,6 +22,7 @@ import UserProfile from "../Pages/Dashboard/Users/UserProfile";
 import AddCourse from "../Pages/Dashboard/Teacher/AddCourse";
 import MyClass from "../Pages/Dashboard/Teacher/MyClass";
 import AllRequestCourse from "../Pages/Dashboard/Admin/AllRequestCourse";
+import TeacherDashboard from "../Pages/Dashboard/Teacher/ClassDetails";
 
 export const router = createBrowserRouter([
   {
@@ -146,6 +147,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <MyClass />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "my-class-details/:id",
+        element: (
+          <ProtectedRoute>
+            <TeacherDashboard />
           </ProtectedRoute>
         ),
       },

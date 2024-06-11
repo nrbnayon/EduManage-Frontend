@@ -1,17 +1,10 @@
-import { useEffect } from "react";
 import { FaBookReader, FaUser } from "react-icons/fa";
 import useEnrollInfo from "../../../hooks/useEnrollInfo";
 import { Link } from "react-router-dom";
-import AOS from "aos";
 import "aos/dist/aos.css";
 
 const MyEnroll = () => {
   const { enrollInfo, isLoading, error } = useEnrollInfo();
-
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-    AOS.refresh();
-  }, []);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -34,21 +27,19 @@ const MyEnroll = () => {
         {enrollInfo.map((course) => (
           <div
             key={course._id}
-            className="relative rounded overflow-hidden shadow-lg border"
-            data-aos="fade-up"
+            className="relative rounded overflow-hidden shadow-lg border flex flex-col justify-between"
           >
             <img
               className="w-full h-64"
               src={course.courseImg}
               alt={course.courseTitle}
-              data-aos="zoom-in"
             />
-            <div className="px-2 py-4" data-aos="fade-right">
+            <div className="px-2 py-4 flex-grow">
               <div className="font-bold text-xl mb-2 font-cinzel">
                 {course.courseTitle}
               </div>
-              <p className="text-gray-700 text-base font-raleway">
-                {course.courseDescription}...
+              <p className="text-gray-700 text-base font-raleway mb-4">
+                {course.courseDescription.slice(0, 100)}...
               </p>
               <div className="flex items-center mt-2">
                 <FaUser className="mr-2" />
@@ -58,7 +49,7 @@ const MyEnroll = () => {
                 </span>
               </div>
             </div>
-            <div className="font-cinzel flex justify-end">
+            <div className="font-cinzel flex justify-end p-2">
               <Link
                 to={`/dashboard/myEnroll-class/${course.courseId}`}
                 className="btn text-white btn-success font-semibold rounded hover:btn-info focus:outline-none focus:shadow-outline"

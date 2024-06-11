@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useTeacher from "../../../hooks/useTeacher";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
@@ -14,6 +14,8 @@ import {
 import { useState } from "react";
 import UpdateClassModal from "./UpdateClassModal"; // import the modal component
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const MyClass = () => {
   const { teacher } = useTeacher();
@@ -26,6 +28,7 @@ const MyClass = () => {
   const {
     data: myAllClass = [],
     isLoading,
+    refetch,
     error,
   } = useQuery({
     queryKey: ["myAllClass"],
@@ -35,29 +38,57 @@ const MyClass = () => {
     },
   });
 
-  const updateMutation = useMutation((updatedCourse) =>
-    axiosSecure.patch(`/courses/${updatedCourse._id}`, updatedCourse)
-  );
-
-  const deleteMutation = useMutation((courseId) =>
-    axiosSecure.delete(`/courses/${courseId}`)
-  );
-
-  const handleUpdate = (course) => {
-    setSelectedCourse(course);
-    setIsModalOpen(true);
-  };
-
-  const handleDelete = (courseId) => {
-    if (window.confirm("Are you sure you want to delete this class?")) {
-      // deleteMutation.mutate(courseId);
-      console.log("delete success", courseId);
+  const handleSubmit = async (data) => {
+    console.log("first", data);
+    try {
+      await axiosSecure.patch(`/update-course/${selectedCourse._id}`, data);
+      refetch();
+      Swal.fire("Success", "Course Successfully Updated", "success");
+      setIsModalOpen(false);
+    } catch (error) {
+      Swal.fire("Error", "Failed to update course", "error");
     }
   };
 
-  const handleSubmit = (data) => {
-    // updateMutation.mutate({ ...selectedCourse, ...data });
-    console.log(data);
+  const handleUpdate = (course) => {
+    setSelectedCourse({
+      ...course,
+      price: Number(course.price),
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+    if (result.isConfirmed) {
+      try {
+        const res = await axiosSecure.delete(`/delete-course/${id}`);
+        if (res.data.deletedCount > 0) {
+          await refetch();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your course has been deleted.",
+            icon: "success",
+          });
+        } else {
+          toast.warn("Course was not deleted.");
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error!",
+          text: "There was an issue deleting the course.",
+          icon: "error",
+        });
+      }
+    }
   };
 
   if (!teacher || !user) {
@@ -68,7 +99,7 @@ const MyClass = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div className="p-4 md:p-6 w-full">
+    <div className="p-2 md:p-6 w-full">
       <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
         My Classes
       </h2>
@@ -120,7 +151,9 @@ const MyClass = () => {
                       ? "opacity-50 cursor-not-allowed"
                       : "hover:from-blue-600 hover:to-purple-600 transition duration-300"
                   }`}
-                  onClick={() => navigate(`/dashboard/my-class/${course._id}`)}
+                  onClick={() =>
+                    navigate(`/dashboard/my-class-details/${course._id}`)
+                  }
                   disabled={course.status === "pending"}
                 >
                   <FaInfoCircle className="mr-2" /> See Details
@@ -142,7 +175,9 @@ const MyClass = () => {
           ))}
         </div>
       ) : (
-        <p>No courses found.</p>
+        <p className="min-h-screen flex justify-center items-center">
+          No courses found.
+        </p>
       )}
       <UpdateClassModal
         isOpen={isModalOpen}

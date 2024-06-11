@@ -56,7 +56,7 @@ const AllCourses = () => {
         {displayedCourses.map((course) => (
           <div
             key={course._id}
-            className="relative rounded overflow-hidden shadow-lg border "
+            className="shrink-0 rounded overflow-hidden shadow-lg border flex flex-col justify-between"
             data-aos="fade-up"
           >
             <img
@@ -65,11 +65,11 @@ const AllCourses = () => {
               alt={course.title}
               data-aos="zoom-in"
             />
-            <div className="px-2 py-4" data-aos="fade-right">
+            <div className="px-2 py-4 flex-grow" data-aos="fade-right">
               <div className="font-bold text-xl mb-2 font-cinzel">
                 {course.title}
               </div>
-              <p className="text-gray-700 text-base font-raleway">
+              <p className="text-gray-700 text-base font-raleway mb-4">
                 {course.shortDescription.slice(0, 60)}...
               </p>
               <div className="flex items-center mt-2">
@@ -103,10 +103,10 @@ const AllCourses = () => {
                 />
               </div>
             </div>
-            <div className="font-cinzel flex justify-end">
+            <div className="font-cinzel flex justify-end p-2">
               <Link
                 to={`/courseDetails/${course._id}`}
-                className="btn  text-white btn-success  font-semibold rounded hover:btn-info focus:outline-none focus:shadow-outline"
+                className="btn text-white btn-success font-semibold rounded hover:btn-info focus:outline-none focus:shadow-outline"
               >
                 <FaBookReader />
                 Enroll Now
