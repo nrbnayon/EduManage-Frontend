@@ -8,7 +8,6 @@ const NavBar = () => {
       .then(() => {})
       .catch((error) => console.error(error));
   };
-
   const navLinks = (
     <>
       <li>

@@ -15,7 +15,6 @@ const ApplyForTeachingPosition = () => {
     formState: { errors },
   } = useForm();
   const { teacher, status, refetch, isLoading } = useTeacher();
-
   const onSubmit = async (data) => {
     try {
       await axiosSecure.post("/teaching-request", {

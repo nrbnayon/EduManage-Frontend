@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FaGoogle, FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+
 import LoginImg from "../../assets/reg3.jpeg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -173,7 +175,7 @@ const Login = () => {
                   onClick={handleGoogleSignIn}
                   className="btn btn-circle bg-red-600 text-white"
                 >
-                  <FaGoogle />
+                  <FcGoogle />
                 </button>
                 <button
                   onClick={handleSocialLogin}

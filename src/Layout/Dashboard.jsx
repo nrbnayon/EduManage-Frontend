@@ -1,30 +1,36 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import {
-  FaCartArrowDown,
   FaList,
-  FaUtensils,
   FaUsers,
   FaBook,
-} from "react-icons/fa6";
-import { FaHome, FaUser } from "react-icons/fa";
+  FaHome,
+  FaUser,
+  FaUserGraduate,
+} from "react-icons/fa";
+import { SiGoogleclassroom } from "react-icons/si";
+
 import { GiWallet } from "react-icons/gi";
 import { MdContentPasteSearch } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { ToastContainer } from "react-toastify";
 import useAdmin from "./../hooks/useAdmin";
+import useTeacher from "../hooks/useTeacher";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
   console.log("is admin", isAdmin);
+  const { teacher } = useTeacher();
+  console.log("is teacher", teacher);
+
   return (
     <div className="flex flex-col md:flex-row h-screen">
       <div className="w-full md:w-64 bg-light-blue-400 font-cinzel font-semibold text-white md:sticky md:top-0">
         <ul className="menu space-y-3 p-4">
-          {isAdmin ? (
+          {isAdmin && (
             <>
               <li>
                 <NavLink
-                  to="/dashboard/adminHome"
+                  to="/dashboard/my-profile"
                   className="flex items-center space-x-2"
                 >
                   <FaHome />
@@ -36,17 +42,17 @@ const Dashboard = () => {
                   to="/dashboard/addCourse"
                   className="flex items-center space-x-2"
                 >
-                  <FaUtensils />
+                  <SiGoogleclassroom />
                   <span>Add Course</span>
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/manageItems"
+                  to="/dashboard/all-courses"
                   className="flex items-center space-x-2"
                 >
                   <FaList />
-                  <span>Manage Items</span>
+                  <span>All Courses</span>
                 </NavLink>
               </li>
               <li>
@@ -68,7 +74,39 @@ const Dashboard = () => {
                 </NavLink>
               </li>
             </>
-          ) : (
+          )}
+          {teacher && (
+            <>
+              <li>
+                <NavLink
+                  to="/dashboard/addCourse"
+                  className="flex items-center space-x-2"
+                >
+                  <SiGoogleclassroom />
+                  <span>Add Course</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/my-class"
+                  className="flex items-center space-x-2"
+                >
+                  <FaList />
+                  <span>My Class</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard/my-profile"
+                  className="flex items-center space-x-2"
+                >
+                  <FaUser />
+                  <span>Profile</span>
+                </NavLink>
+              </li>
+            </>
+          )}
+          {!isAdmin && !teacher && (
             <>
               <li>
                 <NavLink
@@ -79,14 +117,13 @@ const Dashboard = () => {
                   <span>Profile</span>
                 </NavLink>
               </li>
-
               <li>
                 <NavLink
                   to="/dashboard/my-enroll"
                   className="flex items-center space-x-2"
                 >
-                  <FaCartArrowDown />
-                  <span>My Enroll Class </span>
+                  <FaUserGraduate />
+                  <span>My Enroll Class</span>
                 </NavLink>
               </li>
               <li>
@@ -114,7 +151,6 @@ const Dashboard = () => {
               <span>All Courses</span>
             </Link>
           </li>
-
           <li>
             <Link to="/contact" className="flex items-center space-x-2">
               <BiSolidPhoneCall />
