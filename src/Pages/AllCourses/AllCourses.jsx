@@ -72,16 +72,16 @@ const AllCourses = () => {
               <p className="text-gray-700 text-base font-raleway mb-4">
                 {course.shortDescription.slice(0, 60)}...
               </p>
-              <div className="flex items-center mt-2">
+              <div className="flex items-center mt-2 justify-center">
                 <FaUser className="mr-2" />
                 <span className="text-gray-600">
-                  Learn With: <span className="font-bold">{course.name}</span>
+                  Learn with: <span className="font-bold">{course.name}</span>
                 </span>
               </div>
               <div className="flex justify-between">
                 <div className="flex items-center mt-2">
                   <FaDollarSign className="mr-2" />
-                  <span className="text-gray-600">${course.price}</span>
+                  <span className="text-gray-600">Fee: {course.price}$</span>
                 </div>
                 <div className="flex items-center mt-2">
                   <FaUsers className="mr-2" />
@@ -93,7 +93,7 @@ const AllCourses = () => {
               <div className="flex items-center mt-2">
                 <SiSkillshare className="mr-2" />
                 <Typewriter
-                  words={[`${course.title}`, "Enroll", "Explore"]}
+                  words={[`${course.title}`, "Enroll Now", "Explore"]}
                   loop={true}
                   cursor
                   cursorStyle="_"

@@ -28,7 +28,7 @@ const TeacherRequest = () => {
         const approveRes = await axiosSecure.post(
           `/users/teacher-approve/${request._id}`
         );
-        if (approveRes.data.success) {
+        if (approveRes.data.insertedId) {
           refetch();
           Swal.fire({
             position: "top-end",
@@ -38,19 +38,24 @@ const TeacherRequest = () => {
             timer: 1500,
           });
         } else {
-          Swal.fire("Error!", approveRes.data.message, "error");
+          Swal.fire(
+            "Error!",
+            "Failed to insert the approved teacher into the collection.",
+            "error"
+          );
         }
       } else {
         Swal.fire("Error!", res.data.message, "error");
       }
     } catch (error) {
+      console.error("Error making teacher:", error);
       Swal.fire("Error!", "Failed to make the user a teacher.", "error");
     }
   };
 
   const handleRejectRequest = async (id) => {
     try {
-      const res = await axiosSecure.patch(`/users/teacher-reject/${id}`);
+      await axiosSecure.patch(`/users/teacher-reject/${id}`);
       refetch();
       Swal.fire({
         position: "top-end",
@@ -59,7 +64,6 @@ const TeacherRequest = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      console.log(res);
     } catch (error) {
       Swal.fire("Error!", "Failed to reject the request.", "error");
     }
@@ -122,9 +126,9 @@ const TeacherRequest = () => {
                       </>
                     ) : request.status === "reject" ? (
                       <p className="text-red-500 text-xs">Rejected</p>
-                    ) : (
+                    ) : request.status === "approved" ? (
                       <p className="text-green-500 text-xs">Approved</p>
-                    )}
+                    ) : null}
                   </td>
                 </tr>
               ))}

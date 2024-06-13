@@ -33,11 +33,11 @@ const Dashboard = () => {
                   to="/dashboard/my-profile"
                   className="flex items-center space-x-2"
                 >
-                  <FaHome />
-                  <span>Admin Home</span>
+                  <FaUser />
+                  <span>Profile</span>
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink
                   to="/dashboard/addCourse"
                   className="flex items-center space-x-2"
@@ -45,7 +45,7 @@ const Dashboard = () => {
                   <SiGoogleclassroom />
                   <span>Add Course</span>
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink
                   to="/dashboard/all-courses"
@@ -66,11 +66,11 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/users"
+                  to="/dashboard/all-users"
                   className="flex items-center space-x-2"
                 >
                   <FaUsers />
-                  <span>All Users</span>
+                  <span>Users</span>
                 </NavLink>
               </li>
             </>

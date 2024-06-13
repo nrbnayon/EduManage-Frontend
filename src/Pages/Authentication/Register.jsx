@@ -102,7 +102,7 @@ const Register = () => {
           </div>
         </div>
         <div className="flex w-full flex-col justify-center bg-white py-10 lg:w-[60%]">
-          <h2 className="pb-8 text-center text-3xl font-bold text-[#8EA7E9]">
+          <h2 className="pb-8 text-center text-3xl font-bold text-black">
             Register Now
           </h2>
           <form
@@ -194,7 +194,7 @@ const Register = () => {
               </div>
             )}
             <input
-              className="w-[80%] btn hover:btn-primary rounded-lg bg-[#8EA7E9] px-6 py-2 font-medium text-white md:w-[60%]"
+              className="w-[80%] btn hover:btn-primary rounded-lg bg-primary px-6 py-2 font-medium text-white md:w-[60%]"
               type="submit"
             />
           </form>

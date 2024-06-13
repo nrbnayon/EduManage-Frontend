@@ -40,7 +40,7 @@ const AddCourse = () => {
   };
 
   return (
-    <div className="p-6 font-cinzel bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg shadow-lg">
+    <div className="p-6 font-raleway bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg shadow-lg">
       <h2 className="text-3xl font-bold mb-6 text-center">Add New Course</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}

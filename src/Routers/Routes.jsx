@@ -23,6 +23,7 @@ import AddCourse from "../Pages/Dashboard/Teacher/AddCourse";
 import MyClass from "../Pages/Dashboard/Teacher/MyClass";
 import AllRequestCourse from "../Pages/Dashboard/Admin/AllRequestCourse";
 import TeacherDashboard from "../Pages/Dashboard/Teacher/ClassDetails";
+import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -123,6 +124,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AllRequestCourse />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "all-users",
+        element: (
+          <AdminRoute>
+            <AllUsers />
           </AdminRoute>
         ),
       },

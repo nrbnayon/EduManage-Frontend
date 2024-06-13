@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useParams } from "react-router-dom";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
@@ -16,7 +16,6 @@ const MyClassDetails = () => {
   const { user } = useAuth();
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [err, setError] = useState({ description: "", rating: "" });
@@ -35,8 +34,40 @@ const MyClassDetails = () => {
     enabled: !!id,
   });
 
-  const handleSubmitAssignment = (assignmentId) => {
-    console.log(assignmentId);
+  const { data: assignments = [], refetch } = useQuery({
+    queryKey: ["assignments", id],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/all-assignment/${id}`);
+      return res.data;
+    },
+    enabled: !!id,
+  });
+
+  const handleSubmitAssignment = async (assignmentId) => {
+    try {
+      console.log("assignmentId", assignmentId);
+      const res = await axiosSecure.patch(`/submit-assignment/${assignmentId}`);
+      console.log("Response Data:", res.data);
+
+      if (res.status === 200) {
+        Swal.fire("Success", "Assignment submitted successfully", "success");
+        // Refetch or update the data if needed
+        refetch();
+      } else {
+        Swal.fire(
+          "Error",
+          res.data.message || "Failed to submit assignment",
+          "error"
+        );
+      }
+    } catch (error) {
+      console.error("Submit Assignment Error:", error);
+      Swal.fire(
+        "Error",
+        error.response?.data?.message || "Failed to submit assignment",
+        "error"
+      );
+    }
   };
 
   const handleOpenModal = () => {
@@ -90,9 +121,8 @@ const MyClassDetails = () => {
         });
         Swal.fire("Success", "Your feedback has been submitted.", "success");
         handleCloseModal();
-        queryClient.invalidateQueries(["course", id]);
       } catch (error) {
-        console.error("Failed to submit feedback", error);
+        Swal.fire("Error", "Failed to create feedback", "error");
       }
     }
   };
@@ -102,14 +132,14 @@ const MyClassDetails = () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between flex-col-reverse md:flex-row items-center mb-4">
         <h1 className="text-2xl font-bold">{course.title}</h1>
         <button className="btn btn-primary" onClick={handleOpenModal}>
           Create Teaching Evaluation Report (TER)
         </button>
       </div>
 
-      <table className="min-w-full bg-white border">
+      <table className="min-w-full bg-white border overflow-y-auto">
         <thead>
           <tr className="bg-gray-100">
             <th className="py-2 px-4 border">Title</th>
@@ -119,18 +149,22 @@ const MyClassDetails = () => {
           </tr>
         </thead>
         <tbody>
-          {course.assignments?.map((assignment) => (
+          {assignments.map((assignment) => (
             <tr key={assignment._id} className="text-center">
-              <td className="py-2 px-4 border">{assignment.title}</td>
+              <td className="py-2 px-4 border">{assignment.assignmentTitle}</td>
               <td className="py-2 px-4 border">{assignment.description}</td>
               <td className="py-2 px-4 border">{assignment.deadline}</td>
               <td className="py-2 px-4 border">
-                <button
-                  className="btn btn-success"
-                  onClick={() => handleSubmitAssignment(assignment._id)}
-                >
-                  Submit
-                </button>
+                {new Date(assignment.deadline) >= new Date() ? (
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleSubmitAssignment(assignment._id)}
+                  >
+                    Submit
+                  </button>
+                ) : (
+                  <span className="text-red-500">Deadline Passed</span>
+                )}
               </td>
             </tr>
           ))}

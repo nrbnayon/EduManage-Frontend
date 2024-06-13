@@ -77,7 +77,7 @@ const ApplyForTeachingPosition = () => {
   }
 
   return (
-    <div className="my-6 p-8 border font-cinzel rounded-lg shadow-lg bg-white">
+    <div className="my-6 p-8 border font-raleway rounded-lg shadow-lg bg-white">
       <h1 className="text-3xl font-bold mb-8 text-center">
         Apply for a Teaching Position
       </h1>
