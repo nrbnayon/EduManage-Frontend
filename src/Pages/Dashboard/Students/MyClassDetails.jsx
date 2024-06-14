@@ -117,6 +117,8 @@ const MyClassDetails = () => {
           name: user?.displayName,
           image: user?.photoURL,
           title: course.title,
+          courserId: course._id,
+          courseImg: course.image,
           rating,
         });
         Swal.fire("Success", "Your feedback has been submitted.", "success");
@@ -139,37 +141,41 @@ const MyClassDetails = () => {
         </button>
       </div>
 
-      <table className="min-w-full bg-white border overflow-y-auto">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="py-2 px-4 border">Title</th>
-            <th className="py-2 px-4 border">Description</th>
-            <th className="py-2 px-4 border">Deadline</th>
-            <th className="py-2 px-4 border">Submit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {assignments.map((assignment) => (
-            <tr key={assignment._id} className="text-center">
-              <td className="py-2 px-4 border">{assignment.assignmentTitle}</td>
-              <td className="py-2 px-4 border">{assignment.description}</td>
-              <td className="py-2 px-4 border">{assignment.deadline}</td>
-              <td className="py-2 px-4 border">
-                {new Date(assignment.deadline) >= new Date() ? (
-                  <button
-                    className="btn btn-success"
-                    onClick={() => handleSubmitAssignment(assignment._id)}
-                  >
-                    Submit
-                  </button>
-                ) : (
-                  <span className="text-red-500">Deadline Passed</span>
-                )}
-              </td>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border table">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="py-2 px-4 border">Title</th>
+              <th className="py-2 px-4 border">Description</th>
+              <th className="py-2 px-4 border">Deadline</th>
+              <th className="py-2 px-4 border">Submit</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {assignments.map((assignment) => (
+              <tr key={assignment._id} className="text-center">
+                <td className="py-2 px-4 border">
+                  {assignment.assignmentTitle}
+                </td>
+                <td className="py-2 px-4 border">{assignment.description}</td>
+                <td className="py-2 px-4 border">{assignment.deadline}</td>
+                <td className="py-2 px-4 border">
+                  {new Date(assignment.deadline) >= new Date() ? (
+                    <button
+                      className="btn btn-success"
+                      onClick={() => handleSubmitAssignment(assignment._id)}
+                    >
+                      Submit
+                    </button>
+                  ) : (
+                    <span className="text-red-500">Deadline Passed</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <Modal
         isOpen={modalIsOpen}

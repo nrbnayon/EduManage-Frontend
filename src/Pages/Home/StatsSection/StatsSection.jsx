@@ -31,7 +31,7 @@ const StatsSection = () => {
   const { totalUsers, totalCourses, totalEnrollments } = data;
 
   return (
-    <div className="bg-gray-100 py-16 flex flex-col md:flex-row justify-between items-center">
+    <div className="bg-gray-100 text-black py-16 flex flex-col md:flex-row justify-between items-center">
       <div className="flex flex-col gap-6 w-full md:w-1/2 px-4">
         <div className="bg-white p-6 rounded-lg shadow-lg flex items-center">
           <FaUsers className="text-3xl text-blue-500 mr-4" />

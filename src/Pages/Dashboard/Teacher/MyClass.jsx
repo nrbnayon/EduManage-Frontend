@@ -16,6 +16,7 @@ import UpdateClassModal from "./UpdateClassModal"; // import the modal component
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const MyClass = () => {
   const { teacher } = useTeacher();
@@ -39,7 +40,6 @@ const MyClass = () => {
   });
 
   const handleSubmit = async (data) => {
-    console.log("first", data);
     try {
       await axiosSecure.patch(`/update-course/${selectedCourse._id}`, data);
       refetch();
@@ -100,6 +100,9 @@ const MyClass = () => {
 
   return (
     <div className="p-2 md:p-6 w-full">
+      <Helmet>
+        <title>EduManage | Classes</title>
+      </Helmet>
       <h2 className="text-xl md:text-2xl font-bold mb-4 text-center">
         My Classes
       </h2>
@@ -141,7 +144,8 @@ const MyClass = () => {
                 </p>
                 <p className="text-gray-700 mb-4 flex items-center">
                   <FaInfoCircle className="mr-2" />{" "}
-                  <span className="font-bold">Status:</span> {course.status}
+                  <span className="font-bold">Status:</span>{" "}
+                  {course.status === "approved" ? "Accepted" : course.status}
                 </p>
               </div>
               <div className="flex flex-col md:flex-row justify-between space-y-2 md:space-y-0 gap-2">

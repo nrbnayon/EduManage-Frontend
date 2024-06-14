@@ -24,6 +24,7 @@ import MyClass from "../Pages/Dashboard/Teacher/MyClass";
 import AllRequestCourse from "../Pages/Dashboard/Admin/AllRequestCourse";
 import TeacherDashboard from "../Pages/Dashboard/Teacher/ClassDetails";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
+import ProgressPage from "../Pages/Dashboard/Admin/ProgressPage";
 
 export const router = createBrowserRouter([
   {
@@ -128,6 +129,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "class/:id",
+        element: (
+          <AdminRoute>
+            <ProgressPage />
+          </AdminRoute>
+        ),
+      },
+      {
         path: "all-users",
         element: (
           <AdminRoute>
@@ -168,17 +177,5 @@ export const router = createBrowserRouter([
         ),
       },
     ],
-
-    //   //admin Routes
-
-    //   {
-    //     path: "users",
-    //     element: (
-    //       <AdminRoute>
-    //         <AllUsers />
-    //       </AdminRoute>
-    //     ),
-    //   },
-    // ],
   },
 ]);

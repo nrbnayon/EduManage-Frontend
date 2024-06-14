@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { FiGithub, FiTwitter, FiLinkedin, FiFacebook } from "react-icons/fi";
+import { Helmet } from "react-helmet-async";
 
 const UserProfile = () => {
   const { user } = useAuth();
@@ -24,6 +25,9 @@ const UserProfile = () => {
 
   return (
     <div className="flex flex-col justify-center font-cinzel w-full p-6 shadow-md rounded-xl sm:px-12 dark:bg-gray-50 dark:text-gray-800">
+      <Helmet>
+        <title>EduManage | My Profile</title>
+      </Helmet>
       <img
         src={profile.user.userProfileImg}
         alt="Profile"

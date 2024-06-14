@@ -41,7 +41,7 @@ const Testimonials = () => {
         >
           {reviews.map((review) => (
             <SwiperSlide key={review._id}>
-              <div className="flex flex-col justify-center items-center bg-white p-6 my-8 rounded-lg shadow-lg ">
+              <div className="flex flex-col text-black justify-center items-center bg-white p-6 my-8 rounded-lg shadow-lg ">
                 <div className="relative w-24 h-24 rounded-full overflow-hidden shadow-lg mb-4">
                   <img
                     src={review.image}
@@ -68,7 +68,7 @@ const Testimonials = () => {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 512"
-                    className="absolute bottom-0 right-0 w-8 h-8 dark:text-gray-300"
+                    className="absolute bottom-0 right-0 w-8 h-8 "
                   >
                     <path
                       fill="currentColor"
@@ -82,7 +82,7 @@ const Testimonials = () => {
                 </div>
 
                 <div className="md:flex justify-around gap-2 ">
-                  <p className="mt-2 text-gray-600">{review.title}</p>
+                  <p className="mt-2 ">{review.title}</p>
                   <Rating
                     style={{ maxWidth: 100 }}
                     value={review.rating}

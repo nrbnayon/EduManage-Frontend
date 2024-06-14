@@ -15,6 +15,7 @@ import { BiSolidPhoneCall } from "react-icons/bi";
 import { ToastContainer } from "react-toastify";
 import useAdmin from "./../hooks/useAdmin";
 import useTeacher from "../hooks/useTeacher";
+import Logo from "/logo.png";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
@@ -25,6 +26,14 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col md:flex-row h-screen">
       <div className="w-full md:w-64 bg-light-blue-400 font-cinzel font-semibold text-white md:sticky md:top-0">
+        <div>
+          <img src={Logo} alt="Logo" className="w-16 h-16 rounded-md" />
+          <p>
+            Edu Manage
+            <br />
+            Providing reliable education since 2023
+          </p>
+        </div>
         <ul className="menu space-y-3 p-4">
           {isAdmin && (
             <>

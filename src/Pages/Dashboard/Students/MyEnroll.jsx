@@ -2,6 +2,7 @@ import { FaBookReader, FaUser } from "react-icons/fa";
 import useEnrollInfo from "../../../hooks/useEnrollInfo";
 import { Link } from "react-router-dom";
 import "aos/dist/aos.css";
+import { Helmet } from "react-helmet-async";
 
 const MyEnroll = () => {
   const { enrollInfo, isLoading, error } = useEnrollInfo();
@@ -16,6 +17,9 @@ const MyEnroll = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>EduManage | My Enroll</title>
+      </Helmet>
       <div className="relative w-full h-[200px] overflow-hidden rounded-lg shadow-lg">
         <img src={img} alt="img" className="w-full h-full " />
         <div className="bg-opacity-50 absolute md:w-[75%] md:h-1/2 my-6 md:my-auto rounded-2xl mx-auto inset-0 flex flex-col justify-center items-center p-6 text-center text-white font-cinzel animated-gradient">

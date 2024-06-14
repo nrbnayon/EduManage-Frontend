@@ -1,7 +1,11 @@
+import { Helmet } from "react-helmet-async";
 import BGImg from "../../assets/2.gif";
 const Contact = () => {
   return (
     <div>
+      <Helmet>
+        <title>EduManage | Contact Us </title>
+      </Helmet>
       <div className="grid max-w-screen-xl grid-cols-1 gap-8 px-8 py-16 mx-auto rounded-lg md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 dark:bg-gray-100 dark:text-gray-800">
         <div className="flex flex-col justify-between">
           <div className="space-y-2">
@@ -23,7 +27,7 @@ const Contact = () => {
                 id="name"
                 type="text"
                 placeholder=""
-                className="w-full p-3 rounded dark:bg-gray-100"
+                className="w-full p-3 border text-black rounded bg-gray-100"
               />
             </div>
             <div>
@@ -33,7 +37,7 @@ const Contact = () => {
               <input
                 id="email"
                 type="email"
-                className="w-full p-3 rounded dark:bg-gray-100"
+                className="w-full p-3 border text-black rounded bg-gray-100"
               />
             </div>
             <div>
@@ -43,7 +47,7 @@ const Contact = () => {
               <textarea
                 id="message"
                 rows="3"
-                className="w-full p-3 rounded dark:bg-gray-100"
+                className="w-full border p-3 text-black rounded bg-gray-100"
               ></textarea>
             </div>
             <button

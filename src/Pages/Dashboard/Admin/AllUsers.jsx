@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { FaUsersGear } from "react-icons/fa6";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -34,6 +35,9 @@ const AllUsers = () => {
 
   return (
     <div className="w-full p-6 bg-gray-100 min-h-screen font-cinzel">
+      <Helmet>
+        <title>EduManage | All Users</title>
+      </Helmet>
       <div className="flex justify-between items-center bg-white p-4 rounded-lg shadow-md mb-6">
         <h3 className="text-2xl font-bold">All Users</h3>
         <input

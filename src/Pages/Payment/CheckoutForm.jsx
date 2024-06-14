@@ -7,6 +7,7 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import SectionTitle from "./../Shared/BgCard/SectionTitle";
+import { Helmet } from "react-helmet-async";
 
 const CheckoutForm = ({ courseInfo }) => {
   const stripe = useStripe();
@@ -115,6 +116,9 @@ const CheckoutForm = ({ courseInfo }) => {
       onSubmit={handleSubmit}
       className="space-y-6 p-6 bg-white shadow-md rounded-lg"
     >
+      <Helmet>
+        <title>EduManage | Payment Checkout </title>
+      </Helmet>
       <div className="mb-4 space-y-3">
         <SectionTitle header={header} />
         <h3 className="text-center text-lg font-cinzel font-semibold">

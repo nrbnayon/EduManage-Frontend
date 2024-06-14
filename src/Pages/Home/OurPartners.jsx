@@ -34,7 +34,7 @@ const OurPartners = () => {
   return (
     <div>
       <SectionTitle header={header} />
-      <section className="py-4 bg-gray-50">
+      <section className="py-4 ">
         <Marquee pauseOnHover={true} speed={50} direction="right">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             {partners.map((partner) => (

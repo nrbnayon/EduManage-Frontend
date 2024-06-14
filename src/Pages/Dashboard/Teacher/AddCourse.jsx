@@ -11,6 +11,7 @@ import useTeacher from "../../../hooks/useTeacher";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AddCourse = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -41,6 +42,9 @@ const AddCourse = () => {
 
   return (
     <div className="p-6 font-raleway bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg shadow-lg">
+      <Helmet>
+        <title>EduManage | Add New Course</title>
+      </Helmet>
       <h2 className="text-3xl font-bold mb-6 text-center">Add New Course</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}

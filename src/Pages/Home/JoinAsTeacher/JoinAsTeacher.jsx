@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Teacher from "../../../assets/Teacher.jpg";
 const JoinAsTeacherSection = () => {
   return (
-    <div className="bg-gray-100 py-16 flex font-cinzel flex-col md:flex-row justify-between items-center">
+    <div className="bg-gray-100 text-black py-16 flex font-cinzel flex-col md:flex-row justify-between items-center">
       <div className="w-full md:w-1/2 flex justify-center">
         <img
           src={Teacher}
@@ -23,7 +23,7 @@ const JoinAsTeacherSection = () => {
           to="/applyForTeacher"
           className="bg-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-600"
         >
-          Start Teaching Today
+          Teach On Edu Manage
         </Link>
       </div>
     </div>
@@ -31,7 +31,7 @@ const JoinAsTeacherSection = () => {
 };
 
 const ExtraSectionOne = () => (
-  <div className="bg-gray-100 py-16 flex flex-col md:flex-row justify-between items-center">
+  <div className="bg-gray-100 text-black py-16 flex flex-col md:flex-row justify-between items-center">
     <div className="w-full md:w-1/2 px-4 mt-8 md:mt-0">
       <h2 className="text-3xl font-bold mb-4 font-cinzel">
         Explore Our Courses
@@ -56,7 +56,7 @@ const ExtraSectionOne = () => (
 );
 
 const ExtraSectionTwo = () => (
-  <div className="bg-gray-100 py-16 flex flex-col md:flex-row justify-between items-center">
+  <div className="bg-gray-100 text-black py-16 flex flex-col md:flex-row justify-between items-center">
     <div className="w-full md:w-1/2 flex justify-center">
       <img
         src="https://via.placeholder.com/400"
@@ -79,7 +79,7 @@ const ExtraSectionTwo = () => (
 );
 
 const WhyEduManageSection = () => (
-  <div className="bg-gray-100 py-16 flex flex-col md:flex-row justify-between items-center">
+  <div className="bg-gray-100 text-black py-16 flex flex-col md:flex-row justify-between items-center">
     <div className="w-full md:w-1/2 flex justify-center">
       <img
         src="https://www.edusoftconsultants.com/img/cf947b46283c10c47e3d5d945afb7053.gif"
