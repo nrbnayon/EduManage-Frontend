@@ -7,7 +7,9 @@ import SectionTitle from "../../Shared/BgCard/SectionTitle";
 
 const fetchStats = async () => {
   try {
-    const { data } = await axios.get("http://localhost:8000/state");
+    const { data } = await axios.get(
+      "https://edu-manage-server-zeta.vercel.app/state"
+    );
     const stats = data[0];
     return {
       totalUsers: stats.totalUsers || 0,

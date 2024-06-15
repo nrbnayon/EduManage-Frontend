@@ -17,8 +17,6 @@ const useEnrollInfo = () => {
       const res = await axiosSecure.get(
         `/enroll-info?studentEmail=${encodeURIComponent(user.email)}`
       );
-      console.log("API Response:", res.data);
-
       return res.data;
     },
     enabled: !!user?.email,

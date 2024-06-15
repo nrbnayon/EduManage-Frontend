@@ -11,7 +11,6 @@ const useTeacher = () => {
     queryFn: async () => {
       if (!user?.email) return { teacher: false, status: "" };
       const res = await axiosSecure.get(`/users/teacher/${user.email}`);
-      console.log(res.data);
       return res.data;
     },
     enabled: !!user?.email,

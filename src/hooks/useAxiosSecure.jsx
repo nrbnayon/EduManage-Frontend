@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "https://edu-manage-server-zeta.vercel.app",
   withCredentials: true,
 });
 

@@ -24,7 +24,6 @@ const AllUsers = () => {
 
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-      console.log("Admin", res.data);
       if (res.data.modifiedCount > 0) {
         refetch();
         Swal.fire({

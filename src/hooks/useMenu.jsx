@@ -7,7 +7,7 @@ const useMenu = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/menu")
+      .get("https://edu-manage-server-zeta.vercel.app/menu")
       .then((res) => {
         if (Array.isArray(res.data)) {
           setMenus(res.data);
