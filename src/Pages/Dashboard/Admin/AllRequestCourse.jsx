@@ -5,11 +5,16 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import { Pagination, Stack } from "@mui/material";
+import { useState } from "react";
 
 const AllRequestCourse = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageLoading, setPageLoading] = useState(false);
 
+  const itemPerPage = 10;
   const {
     data: pendingCourses = [],
     isLoading,
@@ -48,8 +53,25 @@ const AllRequestCourse = () => {
       Swal.fire("Error", "Failed to reject course", "error");
     }
   };
+  const pendingCoursesCounts = pendingCourses.filter(
+    (corse) => corse.status === "pending"
+  );
+  const pendingCoursesCount = pendingCoursesCounts.length;
 
-  if (isLoading) return <p>Loading...</p>;
+  const handlePageChange = (event, value) => {
+    setPageLoading(true);
+    setCurrentPage(value);
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 500);
+  };
+  const numberOfPages = Math.ceil(pendingCourses.length / itemPerPage);
+  const displayedRequest = pendingCourses.slice(
+    (currentPage - 1) * itemPerPage,
+    currentPage * itemPerPage
+  );
+
+  if (isLoading || pageLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
@@ -58,7 +80,9 @@ const AllRequestCourse = () => {
         <title>EduManage | Pending Request Courses</title>
       </Helmet>
       <div className="flex justify-center items-center bg-white p-4 rounded-lg shadow-md mb-6">
-        <h2 className="text-2xl font-bold">Pending Courses</h2>
+        <h2 className="text-2xl text-black font-bold">
+          Pending Courses ({pendingCoursesCount})
+        </h2>
       </div>
       {pendingCourses.length > 0 ? (
         <div className="overflow-x-auto">
@@ -73,7 +97,7 @@ const AllRequestCourse = () => {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {pendingCourses.map((course) => (
+              {displayedRequest.map((course) => (
                 <tr
                   key={course._id}
                   className="border-b border-gray-200 hover:bg-gray-100"
@@ -86,8 +110,8 @@ const AllRequestCourse = () => {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold">Teacher:</div>
-                        <div className="font-bold">{course.name}</div>
+                        <div className="text-xs">Teacher:</div>
+                        <div className="text-xs">{course.name}</div>
                       </div>
                     </div>
                   </td>
@@ -118,7 +142,7 @@ const AllRequestCourse = () => {
                           <FaTimes className="w-4 h-4" /> Reject
                         </button>
                         <button
-                          className="btn btn-sm btn-info flex items-center gap-1"
+                          className="btn btn-sm btn-info flex items-center  gap-1"
                           disabled={course.status !== "approved"}
                         >
                           <FiEye className="w-4 h-4" /> See Progress
@@ -149,6 +173,17 @@ const AllRequestCourse = () => {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center bg-gray-100 rounded-md p-4 items-center text-center mt-6">
+            <Stack spacing={2}>
+              <Pagination
+                count={numberOfPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Stack>
+          </div>
         </div>
       ) : (
         <p>No pending courses found.</p>

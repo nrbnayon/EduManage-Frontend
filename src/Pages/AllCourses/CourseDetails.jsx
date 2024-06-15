@@ -53,24 +53,22 @@ const CourseDetails = () => {
             ]}
           />
         </div>
-        <p className="text-gray-900 text-base font-raleway">
-          {shortDescription}
-        </p>
+        <p className="text-white text-base font-raleway">{shortDescription}</p>
         <div className="flex items-center justify-center mt-2">
           <FaUser className="mr-2" />
           <span className="">
             Teacher:{" "}
-            <span className="text-black font-cinzel font-bold">{name}</span>
+            <span className="text-white font-cinzel font-bold">{name}</span>
           </span>
         </div>
         <div className="flex justify-between">
           <div className="flex items-center mt-2">
             Course Fee: <FaDollarSign />
-            <span className="text-black font-cinzel font-bold">{price}</span>
+            <span className="text-white font-cinzel font-bold">{price}</span>
           </div>
           <div className="flex items-center mt-2">
             <FaUsers className="mr-2" />
-            <span className="text-black font-cinzel font-bold">
+            <span className="text-white font-cinzel font-bold">
               Total Enrollments: {totalEnrollment}
             </span>
           </div>

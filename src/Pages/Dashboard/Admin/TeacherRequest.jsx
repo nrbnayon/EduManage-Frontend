@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { FaBan } from "react-icons/fa";
 import { FaUsersGear } from "react-icons/fa6";
+import { Pagination, Stack } from "@mui/material";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const TeacherRequest = () => {
   const axiosSecure = useAxiosSecure();
@@ -18,6 +20,10 @@ const TeacherRequest = () => {
       return res.data;
     },
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageLoading, setPageLoading] = useState(false);
+  const itemPerPage = 10;
 
   const handleMakeTeacher = async (request) => {
     try {
@@ -69,12 +75,32 @@ const TeacherRequest = () => {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  const handlePageChange = (event, value) => {
+    setPageLoading(true);
+    setCurrentPage(value);
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 500);
+  };
+  const pendingTeacherRequests = requests.filter(
+    (request) => request.status === "pending"
+  );
+  const pendingTeacherRequest = pendingTeacherRequests.length;
+
+  const numberOfPages = Math.ceil(requests.length / itemPerPage);
+  const displayedRequests = requests.slice(
+    (currentPage - 1) * itemPerPage,
+    currentPage * itemPerPage
+  );
+
+  if (isLoading || pageLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading requests: {error.message}</p>;
 
   return (
-    <div className="my-6 px-2 py-8 border rounded-lg shadow-lg bg-white">
-      <h1 className="text-3xl font-bold mb-8 text-center">Teaching Requests</h1>
+    <div className="my-6 px-2 py-8 border text-black rounded-lg shadow-lg bg-white">
+      <h1 className="text-3xl font-bold mb-8 text-center">
+        Teaching Requests Pending ({pendingTeacherRequest})
+      </h1>
       {requests.length === 0 ? (
         <p>No requests found.</p>
       ) : (
@@ -92,7 +118,7 @@ const TeacherRequest = () => {
               </tr>
             </thead>
             <tbody>
-              {requests.map((request) => (
+              {displayedRequests.map((request) => (
                 <tr key={request._id} className="border-b">
                   <td className="py-3 px-4">
                     <img
@@ -134,6 +160,17 @@ const TeacherRequest = () => {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center rounded-md p-4 items-center text-center mt-6">
+            <Stack spacing={2}>
+              <Pagination
+                count={numberOfPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Stack>
+          </div>
         </div>
       )}
     </div>

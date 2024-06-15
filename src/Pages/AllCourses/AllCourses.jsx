@@ -17,7 +17,7 @@ const AllCourses = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageLoading, setPageLoading] = useState(false);
 
-  const itemPerPage = 9;
+  const itemPerPage = 10;
 
   const handlePageChange = (event, value) => {
     setPageLoading(true);
@@ -69,23 +69,23 @@ const AllCourses = () => {
               <div className="font-bold text-xl mb-2 font-cinzel">
                 {course.title}
               </div>
-              <p className="text-gray-700 text-base font-raleway mb-4">
+              <p className="text-gray-300 text-base font-raleway mb-4">
                 {course.shortDescription.slice(0, 60)}...
               </p>
               <div className="flex items-center mt-2 justify-center">
                 <FaUser className="mr-2" />
-                <span className="text-gray-600">
+                <span className="text-gray-300">
                   Learn with: <span className="font-bold">{course.name}</span>
                 </span>
               </div>
               <div className="flex justify-between">
                 <div className="flex items-center mt-2">
                   <FaDollarSign className="mr-2" />
-                  <span className="text-gray-600">Fee: {course.price}$</span>
+                  <span className="text-gray-300">Fee: {course.price}$</span>
                 </div>
                 <div className="flex items-center mt-2">
                   <FaUsers className="mr-2" />
-                  <span className="text-gray-600">
+                  <span className="text-gray-300">
                     Total Enrollments: {course.totalEnrollment}
                   </span>
                 </div>
@@ -115,7 +115,7 @@ const AllCourses = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center items-center text-center mt-6">
+      <div className="flex justify-center bg-gray-100 rounded-md p-4 items-center text-center mt-6">
         <Stack spacing={2}>
           <Pagination
             count={numberOfPages}

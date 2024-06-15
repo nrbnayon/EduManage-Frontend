@@ -114,7 +114,7 @@ const CheckoutForm = ({ courseInfo }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 p-6 bg-white shadow-md rounded-lg"
+      className="space-y-6 p-6 bg-white text-black shadow-md rounded-lg"
     >
       <Helmet>
         <title>EduManage | Payment Checkout </title>

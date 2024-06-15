@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
+import { Pagination, Stack } from "@mui/material";
 
 const MyClass = () => {
   const { teacher } = useTeacher();
@@ -25,6 +26,9 @@ const MyClass = () => {
   const navigate = useNavigate();
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageLoading, setPageLoading] = useState(false);
+  const itemPerPage = 10;
 
   const {
     data: myAllClass = [],
@@ -94,8 +98,20 @@ const MyClass = () => {
   if (!teacher || !user) {
     return <p>You must be a teacher to view this page.</p>;
   }
+  const handlePageChange = (event, value) => {
+    setPageLoading(true);
+    setCurrentPage(value);
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 500);
+  };
 
-  if (isLoading) return <p>Loading...</p>;
+  const numberOfPages = Math.ceil(myAllClass.length / itemPerPage);
+  const displayedCourses = myAllClass.slice(
+    (currentPage - 1) * itemPerPage,
+    currentPage * itemPerPage
+  );
+  if (isLoading || pageLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
@@ -107,8 +123,8 @@ const MyClass = () => {
         My Classes
       </h2>
       {myAllClass.length > 0 ? (
-        <div className="w-full gap-4">
-          {myAllClass.map((course) => (
+        <div className="w-full space-y-6 gap-4">
+          {displayedCourses.map((course) => (
             <div
               key={course._id}
               className="bg-white rounded-lg shadow-lg p-4 transform hover:scale-105 transition-transform duration-300"
@@ -151,14 +167,16 @@ const MyClass = () => {
               <div className="flex flex-col md:flex-row justify-between space-y-2 md:space-y-0 gap-2">
                 <button
                   className={`flex items-center justify-center w-full py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg shadow-md ${
-                    course.status === "pending"
+                    course.status === "pending" || course.status === "rejected"
                       ? "opacity-50 cursor-not-allowed"
                       : "hover:from-blue-600 hover:to-purple-600 transition duration-300"
                   }`}
                   onClick={() =>
                     navigate(`/dashboard/my-class-details/${course._id}`)
                   }
-                  disabled={course.status === "pending"}
+                  disabled={
+                    course.status === "pending" || course.status === "rejected"
+                  }
                 >
                   <FaInfoCircle className="mr-2" /> See Details
                 </button>
@@ -177,6 +195,17 @@ const MyClass = () => {
               </div>
             </div>
           ))}
+          <div className="flex justify-center bg-gray-100 rounded-md p-4 items-center text-center mt-6">
+            <Stack spacing={2}>
+              <Pagination
+                count={numberOfPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Stack>
+          </div>
         </div>
       ) : (
         <p className="min-h-screen flex justify-center items-center">

@@ -25,6 +25,7 @@ import AllRequestCourse from "../Pages/Dashboard/Admin/AllRequestCourse";
 import TeacherDashboard from "../Pages/Dashboard/Teacher/ClassDetails";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 import ProgressPage from "../Pages/Dashboard/Admin/ProgressPage";
+import MyProgress from "../Pages/Dashboard/Students/MyProgress";
 
 export const router = createBrowserRouter([
   {
@@ -109,6 +110,14 @@ export const router = createBrowserRouter([
         element: (
           <StudentEnrollRouter>
             <MyClassDetails />
+          </StudentEnrollRouter>
+        ),
+      },
+      {
+        path: "my-progress",
+        element: (
+          <StudentEnrollRouter>
+            <MyProgress />
           </StudentEnrollRouter>
         ),
       },

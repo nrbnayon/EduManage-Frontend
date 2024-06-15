@@ -2,38 +2,45 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import {
   FaList,
   FaUsers,
-  FaBook,
+  FaChalkboardTeacher,
   FaHome,
   FaUser,
   FaUserGraduate,
 } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 
-import { GiWallet } from "react-icons/gi";
+import { GiProgression } from "react-icons/gi";
 import { MdContentPasteSearch } from "react-icons/md";
 import { BiSolidPhoneCall } from "react-icons/bi";
 import { ToastContainer } from "react-toastify";
 import useAdmin from "./../hooks/useAdmin";
 import useTeacher from "../hooks/useTeacher";
 import Logo from "/logo.png";
+import { Helmet } from "react-helmet-async";
 
 const Dashboard = () => {
   const { isAdmin } = useAdmin();
-  console.log("is admin", isAdmin);
   const { teacher } = useTeacher();
-  console.log("is teacher", teacher);
 
   return (
     <div className="flex flex-col md:flex-row h-screen">
+      <Helmet>
+        <title>{`EduManage | ${
+          isAdmin
+            ? "Admin Dashboard"
+            : teacher
+            ? "Teacher Dashboard"
+            : "Student Dashboard"
+        }`}</title>
+      </Helmet>
       <div className="w-full md:w-64 bg-light-blue-400 font-cinzel font-semibold text-white md:sticky md:top-0">
-        <div>
+        <div className="flex items-center p-4 gap-4 bg-white shadow-md rounded-lg">
           <img src={Logo} alt="Logo" className="w-16 h-16 rounded-md" />
-          <p>
-            Edu Manage
-            <br />
-            Providing reliable education since 2023
+          <p className="text-2xl font-semibold text-gray-800">
+            Start Learning Today
           </p>
         </div>
+
         <ul className="menu space-y-3 p-4">
           {isAdmin && (
             <>
@@ -69,7 +76,7 @@ const Dashboard = () => {
                   to="/dashboard/teacher-request"
                   className="flex items-center space-x-2"
                 >
-                  <FaBook />
+                  <FaChalkboardTeacher />
                   <span>Teacher Request</span>
                 </NavLink>
               </li>
@@ -88,6 +95,15 @@ const Dashboard = () => {
             <>
               <li>
                 <NavLink
+                  to="/dashboard/my-profile"
+                  className="flex items-center space-x-2"
+                >
+                  <FaUser />
+                  <span>Profile</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
                   to="/dashboard/addCourse"
                   className="flex items-center space-x-2"
                 >
@@ -102,15 +118,6 @@ const Dashboard = () => {
                 >
                   <FaList />
                   <span>My Class</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/dashboard/my-profile"
-                  className="flex items-center space-x-2"
-                >
-                  <FaUser />
-                  <span>Profile</span>
                 </NavLink>
               </li>
             </>
@@ -137,11 +144,11 @@ const Dashboard = () => {
               </li>
               <li>
                 <NavLink
-                  to="/dashboard/paymentHistory"
+                  to="/dashboard/my-progress"
                   className="flex items-center space-x-2"
                 >
-                  <GiWallet />
-                  <span>Payment History</span>
+                  <GiProgression />
+                  <span>My Progress</span>
                 </NavLink>
               </li>
             </>

@@ -55,13 +55,14 @@ const TeacherDashboard = () => {
     }
   };
 
-  const { data: submissions = [0] } = useQuery({
+  const { data: submissions = [] } = useQuery({
     queryKey: ["submissions"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/per-day-submit/${id}`);
       return res.data;
     },
   });
+  // console.log(submissions?.assignments?.perDaySubmissions);
   return (
     <div className="p-4 w-full font-raleway">
       <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">

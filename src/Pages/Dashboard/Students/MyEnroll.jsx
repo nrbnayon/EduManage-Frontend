@@ -3,11 +3,31 @@ import useEnrollInfo from "../../../hooks/useEnrollInfo";
 import { Link } from "react-router-dom";
 import "aos/dist/aos.css";
 import { Helmet } from "react-helmet-async";
+import { Pagination, Stack } from "@mui/material";
+import { useState } from "react";
 
 const MyEnroll = () => {
   const { enrollInfo, isLoading, error } = useEnrollInfo();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageLoading, setPageLoading] = useState(false);
 
-  if (isLoading) return <p>Loading...</p>;
+  const itemPerPage = 10;
+
+  const handlePageChange = (event, value) => {
+    setPageLoading(true);
+    setCurrentPage(value);
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 500);
+  };
+
+  const numberOfPages = Math.ceil(enrollInfo.length / itemPerPage);
+  const displayedCourses = enrollInfo.slice(
+    (currentPage - 1) * itemPerPage,
+    currentPage * itemPerPage
+  );
+
+  if (isLoading || pageLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const img =
@@ -28,7 +48,7 @@ const MyEnroll = () => {
         </div>
       </div>
       <div className="m-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-        {enrollInfo.map((course) => (
+        {displayedCourses.map((course) => (
           <div
             key={course._id}
             className="relative rounded overflow-hidden shadow-lg border flex flex-col justify-between"
@@ -64,6 +84,17 @@ const MyEnroll = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center bg-gray-100 rounded-md p-4 items-center text-center mt-6">
+        <Stack spacing={2}>
+          <Pagination
+            count={numberOfPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            variant="outlined"
+            shape="rounded"
+          />
+        </Stack>
       </div>
     </div>
   );

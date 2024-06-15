@@ -44,7 +44,7 @@ const UpdateClassModal = ({ isOpen, onClose, onSubmit, initialData }) => {
             <label className="block text-gray-700 font-medium">Image URL</label>
             <input
               {...register("image")}
-              className="w-full p-3 border border-gray-300 rounded text-black"
+              className="w-full p-3 border border-gray-300 text-white rounded "
             />
           </div>
           <div className="mb-4">

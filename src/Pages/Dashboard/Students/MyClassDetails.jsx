@@ -9,6 +9,7 @@ import { BsFillSendFill } from "react-icons/bs";
 import { AiOutlineClose } from "react-icons/ai";
 import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { Pagination, Stack } from "@mui/material";
 
 Modal.setAppElement("#root");
 
@@ -20,6 +21,11 @@ const MyClassDetails = () => {
   const [rating, setRating] = useState(0);
   const [err, setError] = useState({ description: "", rating: "" });
   const [description, setDescription] = useState("");
+  const [submittedAssignments, setSubmittedAssignments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageLoading, setPageLoading] = useState(false);
+
+  const itemPerPage = 10;
 
   const {
     data: course = {},
@@ -45,13 +51,10 @@ const MyClassDetails = () => {
 
   const handleSubmitAssignment = async (assignmentId) => {
     try {
-      console.log("assignmentId", assignmentId);
       const res = await axiosSecure.patch(`/submit-assignment/${assignmentId}`);
-      console.log("Response Data:", res.data);
-
       if (res.status === 200) {
         Swal.fire("Success", "Assignment submitted successfully", "success");
-        // Refetch or update the data if needed
+        setSubmittedAssignments([...submittedAssignments, assignmentId]);
         refetch();
       } else {
         Swal.fire(
@@ -61,7 +64,6 @@ const MyClassDetails = () => {
         );
       }
     } catch (error) {
-      console.error("Submit Assignment Error:", error);
       Swal.fire(
         "Error",
         error.response?.data?.message || "Failed to submit assignment",
@@ -129,12 +131,25 @@ const MyClassDetails = () => {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  const handlePageChange = (event, value) => {
+    setPageLoading(true);
+    setCurrentPage(value);
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 500);
+  };
+  const numberOfPages = Math.ceil(assignments.length / itemPerPage);
+
+  const displayedAssignments = assignments.slice(
+    (currentPage - 1) * itemPerPage,
+    currentPage * itemPerPage
+  );
+  if (isLoading || pageLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>
-      <div className="flex justify-between flex-col-reverse md:flex-row items-center mb-4">
+      <div className="flex justify-between flex-col-reverse lg:flex-row items-center mb-4">
         <h1 className="text-2xl font-bold">{course.title}</h1>
         <button className="btn btn-primary" onClick={handleOpenModal}>
           Create Teaching Evaluation Report (TER)
@@ -142,9 +157,9 @@ const MyClassDetails = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border table">
+        <table className="min-w-full bg-white text-center table ">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className="bg-gray-100 text-black">
               <th className="py-2 px-4 border">Title</th>
               <th className="py-2 px-4 border">Description</th>
               <th className="py-2 px-4 border">Deadline</th>
@@ -152,8 +167,8 @@ const MyClassDetails = () => {
             </tr>
           </thead>
           <tbody>
-            {assignments.map((assignment) => (
-              <tr key={assignment._id} className="text-center">
+            {displayedAssignments.map((assignment) => (
+              <tr key={assignment._id} className="text-center text-black">
                 <td className="py-2 px-4 border">
                   {assignment.assignmentTitle}
                 </td>
@@ -161,12 +176,16 @@ const MyClassDetails = () => {
                 <td className="py-2 px-4 border">{assignment.deadline}</td>
                 <td className="py-2 px-4 border">
                   {new Date(assignment.deadline) >= new Date() ? (
-                    <button
-                      className="btn btn-success"
-                      onClick={() => handleSubmitAssignment(assignment._id)}
-                    >
-                      Submit
-                    </button>
+                    submittedAssignments.includes(assignment._id) ? (
+                      <span className="text-green-500">Submitted</span>
+                    ) : (
+                      <button
+                        className="btn btn-success"
+                        onClick={() => handleSubmitAssignment(assignment._id)}
+                      >
+                        Submit
+                      </button>
+                    )
                   ) : (
                     <span className="text-red-500">Deadline Passed</span>
                   )}
@@ -174,6 +193,17 @@ const MyClassDetails = () => {
               </tr>
             ))}
           </tbody>
+          <div className="flex justify-center rounded-md p-4 items-center text-center mt-6">
+            <Stack spacing={2}>
+              <Pagination
+                count={numberOfPages}
+                page={currentPage}
+                onChange={handlePageChange}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Stack>
+          </div>
         </table>
       </div>
 
@@ -185,7 +215,7 @@ const MyClassDetails = () => {
         overlayClassName="overlay bg-black bg-opacity-50 fixed inset-0"
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">
+          <h2 className="text-xl font-bold text-black">
             Teaching Evaluation Report (TER)
           </h2>
           <button

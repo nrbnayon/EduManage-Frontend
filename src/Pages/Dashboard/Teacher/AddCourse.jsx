@@ -29,11 +29,10 @@ const AddCourse = () => {
 
     try {
       if (teacher) {
-        const res = await axiosSecure.post("/new-course", courseInfo);
-        console.log("res", res);
+        await axiosSecure.post("/new-course", courseInfo);
         Swal.fire("Success", "New Course Added Successfully", "success");
-        navigate("/dashboard/my-class");
         reset();
+        navigate("/dashboard/my-class");
       }
     } catch (error) {
       Swal.fire("Error", "Failed to add course", "error");
@@ -56,7 +55,7 @@ const AddCourse = () => {
             <label className="block">Title</label>
             <input
               {...register("title", { required: true })}
-              className="w-full p-3 border border-gray-300 rounded text-black"
+              className="w-full p-3 border border-gray-300 rounded text-white"
               placeholder="Course Title"
             />
           </div>
@@ -69,7 +68,7 @@ const AddCourse = () => {
               {...register("price", { required: true })}
               type="number"
               min={0}
-              className="w-full p-3 border border-gray-300 rounded text-black"
+              className="w-full p-3 border border-gray-300 rounded text-white"
               placeholder="Price"
             />
           </div>
@@ -80,7 +79,7 @@ const AddCourse = () => {
             <label className="block">Image URL</label>
             <input
               {...register("image", { required: true })}
-              className="w-full p-3 border border-gray-300 rounded text-black"
+              className="w-full p-3 border border-gray-300 rounded text-white"
               placeholder="Image URL"
             />
           </div>
@@ -91,7 +90,7 @@ const AddCourse = () => {
             <label className="block">Short Description</label>
             <textarea
               {...register("shortDescription", { required: true })}
-              className="w-full p-3 border border-gray-300 rounded text-black"
+              className="w-full p-3 border border-gray-300 rounded text-white"
               placeholder="Course Description"
             ></textarea>
           </div>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Teacher from "../../../assets/Teacher.jpg";
 const JoinAsTeacherSection = () => {
   return (
-    <div className="bg-gray-100 text-black py-16 flex font-cinzel flex-col md:flex-row justify-between items-center">
+    <div className="bg-gray-100 text-black py-10 my-6 flex font-cinzel flex-col md:flex-row justify-between items-center">
       <div className="w-full md:w-1/2 flex justify-center">
         <img
           src={Teacher}
@@ -79,7 +79,7 @@ const ExtraSectionTwo = () => (
 );
 
 const WhyEduManageSection = () => (
-  <div className="bg-gray-100 text-black py-16 flex flex-col md:flex-row justify-between items-center">
+  <div className="bg-gray-100 text-black py-10 my-6 flex flex-col md:flex-row justify-between items-center">
     <div className="w-full md:w-1/2 flex justify-center">
       <img
         src="https://www.edusoftconsultants.com/img/cf947b46283c10c47e3d5d945afb7053.gif"

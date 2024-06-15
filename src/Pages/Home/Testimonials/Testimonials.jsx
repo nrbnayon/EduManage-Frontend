@@ -26,7 +26,7 @@ const Testimonials = () => {
   });
 
   return (
-    <div className="bg-gray-100 my-8">
+    <div className=" my-4 rounded-md">
       <SectionTitle header={header} />
       <div className="py-4">
         <Swiper

@@ -45,10 +45,17 @@ const ProgressPage = () => {
   return (
     <div className="w-full p-6 bg-gray-100 min-h-screen">
       <div
-        className=" sticky top-2 z-20 flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat p-8 rounded-lg shadow-lg mb-6"
+        className={`sticky top-2 z-20 flex flex-col justify-center items-center p-8 rounded-lg shadow-lg mb-6 ${
+          !classFeedbacks[0]?.courseImg ? "bg-gray-100" : ""
+        }`}
         style={{
-          backgroundImage: `url(${classFeedbacks[0]?.courseImg})`,
+          backgroundImage: classFeedbacks[0]?.courseImg
+            ? `url(${classFeedbacks[0].courseImg})`
+            : "",
           height: "200px",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       >
         <div className="bg-black bg-opacity-50 p-4 rounded-lg text-center">

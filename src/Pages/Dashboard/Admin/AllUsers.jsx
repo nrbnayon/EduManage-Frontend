@@ -4,10 +4,15 @@ import Swal from "sweetalert2";
 import { FaUsersGear } from "react-icons/fa6";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import { Pagination, Stack } from "@mui/material";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageLoading, setPageLoading] = useState(false);
+
+  const itemPerPage = 10;
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users", search],
@@ -33,8 +38,24 @@ const AllUsers = () => {
     });
   };
 
+  const handlePageChange = (event, value) => {
+    setPageLoading(true);
+    setCurrentPage(value);
+    setTimeout(() => {
+      setPageLoading(false);
+    }, 500);
+  };
+
+  const numberOfPages = Math.ceil(users.length / itemPerPage);
+  const displayedUsers = users.slice(
+    (currentPage - 1) * itemPerPage,
+    currentPage * itemPerPage
+  );
+
+  if (pageLoading) return <p>Loading...</p>;
+
   return (
-    <div className="w-full p-6 bg-gray-100 min-h-screen font-cinzel">
+    <div className="w-full p-6 text-black bg-gray-100 min-h-screen font-cinzel">
       <Helmet>
         <title>EduManage | All Users</title>
       </Helmet>
@@ -42,8 +63,8 @@ const AllUsers = () => {
         <h3 className="text-2xl font-bold">All Users</h3>
         <input
           type="text"
-          placeholder="Search by name or email"
-          className="input input-bordered w-1/3"
+          placeholder="Search here by name/email"
+          className="input border bg-gray-200 input-bordered w-1/3"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -60,13 +81,13 @@ const AllUsers = () => {
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
-            {users.map((user, i) => (
+            {displayedUsers.map((user, i) => (
               <tr
                 key={user._id}
                 className="border-b border-gray-200 hover:bg-gray-100"
               >
                 <td className="py-3 px-6 text-left whitespace-nowrap">
-                  <p>{i + 1}</p>
+                  <p>{i + 1 + (currentPage - 1) * itemPerPage}</p>
                 </td>
                 <td className="py-3 px-6 text-left">
                   <div className="flex items-center gap-3">
@@ -104,6 +125,17 @@ const AllUsers = () => {
             ))}
           </tbody>
         </table>
+        <div className="flex justify-center bg-gray-100 rounded-md p-4 items-center text-center mt-6">
+          <Stack spacing={2}>
+            <Pagination
+              count={numberOfPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              shape="rounded"
+            />
+          </Stack>
+        </div>
       </div>
     </div>
   );

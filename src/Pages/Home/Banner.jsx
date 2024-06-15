@@ -1,10 +1,10 @@
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import B1 from "../../assets/reg1.jpeg";
-import B2 from "../../assets/reg2.jpeg";
+import B1 from "../../assets/b1.jpeg";
+import B2 from "../../assets/b2.jpeg";
 import B3 from "../../assets/reg3.jpeg";
-import B4 from "../../assets/reg4.jpeg";
-import B5 from "../../assets/reg5.jpeg";
+import B4 from "../../assets/b3.jpeg";
+import B5 from "../../assets/b4.jpeg";
 // import B6 from "../../assets/reg1.jpeg";
 const Banner = () => {
   return (
