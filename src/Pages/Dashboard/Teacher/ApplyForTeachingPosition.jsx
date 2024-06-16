@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useTeacher from "../../../hooks/useTeacher";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ApplyForTeachingPosition = () => {
   const { user } = useAuth();
@@ -69,7 +70,7 @@ const ApplyForTeachingPosition = () => {
             onClick={handleReapply}
             className="mt-4 py-2 px-4  bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700"
           >
-            request to another
+            Request to another
           </button>
         </div>
       </div>
@@ -78,6 +79,9 @@ const ApplyForTeachingPosition = () => {
 
   return (
     <div className="my-6 p-8 border text-black font-raleway rounded-lg shadow-lg bg-white">
+      <Helmet>
+        <title>EduManage | Teach on Edu Manage </title>
+      </Helmet>
       <h1 className="text-3xl font-bold mb-8 text-center">
         Apply for a Teaching Position
       </h1>

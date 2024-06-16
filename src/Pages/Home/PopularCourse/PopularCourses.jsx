@@ -79,7 +79,7 @@ const PopularCourses = () => {
                     Total Enrolled: {course.totalEnrollment}
                   </span>
                 </div>
-                <Link to={`/course/${course._id}`}>
+                <Link to={`/courseDetails/${course._id}`}>
                   <button className="w-full py-2 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300">
                     Enroll Now
                   </button>
