@@ -175,7 +175,7 @@ const CheckoutForm = ({ courseInfo }) => {
           </>
         ) : (
           <>
-            <FaCreditCard className="mr-2" /> Pay
+            <FaCreditCard className="mr-2" /> Pay {price}$
           </>
         )}
       </button>
