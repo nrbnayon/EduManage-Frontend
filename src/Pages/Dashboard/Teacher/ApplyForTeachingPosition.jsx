@@ -45,6 +45,9 @@ const ApplyForTeachingPosition = () => {
   if (teacher) {
     return (
       <div className="min-h-screen flex justify-center items-center">
+        <Helmet>
+          <title>EduManage | Teach on Edu Manage </title>
+        </Helmet>
         <p>You are already a teacher.</p>
       </div>
     );
@@ -53,6 +56,9 @@ const ApplyForTeachingPosition = () => {
   if (status === "pending") {
     return (
       <div className="min-h-screen text-black flex justify-center items-center bg-gray-300 rounded">
+        <Helmet>
+          <title>EduManage | Teach on Edu Manage </title>
+        </Helmet>
         <p>
           You have already applied for this position. Your application is
           pending.
@@ -64,6 +70,9 @@ const ApplyForTeachingPosition = () => {
   if (status === "reject") {
     return (
       <div className="min-h-screen bg-gray-300 rounded text-black font-cinzel flex justify-center items-center">
+        <Helmet>
+          <title>EduManage | Teach on Edu Manage </title>
+        </Helmet>
         <div className="text-center ">
           <p>Your previous application was rejected.</p>
           <button
@@ -101,6 +110,25 @@ const ApplyForTeachingPosition = () => {
             {...register("image", { required: true })}
             value={user?.photoURL}
           />
+        </div>
+        <div className="sm:col-span-2">
+          <label
+            className="block text-sm font-medium text-black"
+            htmlFor="title"
+          >
+            Title
+          </label>
+          <input
+            id="title"
+            {...register("title", { required: true })}
+            className={`mt-1 block bg-gray-100 w-full px-3 py-2 border ${
+              errors.title ? "border-red-500" : "border-gray-300"
+            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
+            type="text"
+          />
+          {errors.title && (
+            <p className="text-red-500 text-xs mt-1">Title is required</p>
+          )}
         </div>
         <div>
           <label
@@ -162,25 +190,7 @@ const ApplyForTeachingPosition = () => {
             <p className="text-red-500 text-xs mt-1">Experience is required</p>
           )}
         </div>
-        <div className="sm:col-span-2">
-          <label
-            className="block text-sm font-medium text-black"
-            htmlFor="title"
-          >
-            Title
-          </label>
-          <input
-            id="title"
-            {...register("title", { required: true })}
-            className={`mt-1 block bg-gray-100 w-full px-3 py-2 border ${
-              errors.title ? "border-red-500" : "border-gray-300"
-            } rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
-            type="text"
-          />
-          {errors.title && (
-            <p className="text-red-500 text-xs mt-1">Title is required</p>
-          )}
-        </div>
+
         <div className="sm:col-span-2">
           <label
             className="block text-sm font-medium text-gray-700"
