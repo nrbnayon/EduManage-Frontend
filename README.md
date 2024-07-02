@@ -9,7 +9,7 @@ Check out the live demo of the project: [EduManage Live](https://edu-manage.netl
 ## Admin Credentials
 
 - **Email:** admin@gmail.com
-- **Password:** Admin123
+- **Password:** 
 
 ## Features
 
